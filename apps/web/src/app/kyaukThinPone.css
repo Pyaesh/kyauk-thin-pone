@@ -36,6 +36,7 @@ html .layerling-editor .toolbar-title-row { display: grid; grid-template-columns
 .calm-editor-brand > span:first-child { font-size: 24px; }
 .calm-editor-brand strong { font-size: 25px; font-weight: 500; }
 .calm-home-label { font-size: 13px; }
+.calm-header-divider { width: 1px; height: 32px; flex-shrink: 0; background: #9fbaa6; }
 .layerling-editor .toolbar-workspace-tabs { height: auto; border: 1px solid #769a83; border-radius: 7px; padding: 3px; gap: 4px; background: #244d40; }
 .layerling-editor .toolbar-workspace-tabs button { min-height: 42px; padding: 7px 17px; color: #e7eedf; background: transparent; border: 0; border-radius: 4px; font-size: 14px; }
 .layerling-editor .toolbar-workspace-tabs button.active { color: #193e35; background: #d2e5b8; box-shadow: none; border: 0; }
@@ -70,10 +71,11 @@ html .layerling-editor .toolbar-mode-content, html[data-toolbar-size="large"] .l
 .editor-more-preferences { display: flex; gap: 12px; padding: 12px 0; border-block: 1px solid var(--border); margin-block: 10px; }
 .editor-more-links { display: grid; gap: 10px; font-size: 13px; }
 .editor-more-links a { color: var(--primary); text-decoration: underline; }
-.layerling-editor .camera-controls { display: flex; flex-direction: column; grid-template-columns: none; transform: none; gap: 3px; padding: 5px; background: #edf4e9; border-color: #aac5b3; border-radius: 12px; }
+.layerling-editor .view-cube { left: 28px; }
+.layerling-editor .camera-controls { top: 140px; display: flex; flex-direction: column; grid-template-columns: none; transform: none; gap: 3px; padding: 5px; background: #edf4e9; border-color: #aac5b3; border-radius: 12px; }
 .layerling-editor .camera-controls > button, .layerling-editor .camera-controls > div { order: 0; }
-.layerling-editor .camera-controls .editor-profile-control { order: 1; }
-.layerling-editor .camera-controls .editor-settings-control { order: 2; }
+.layerling-editor .camera-controls .editor-profile-control { order: 20; }
+.layerling-editor .camera-controls .editor-settings-control { order: 21; }
 .layerling-editor .camera-controls .camera-home-control { order: 3; }
 .layerling-editor .camera-controls .camera-fit-control { order: 4; }
 .layerling-editor .camera-controls .workplane-display-control-group { order: 5; }
@@ -91,7 +93,7 @@ html .layerling-editor .toolbar-mode-content, html[data-toolbar-size="large"] .l
 .editor-profile-dialog h2 { margin: 14px 0; font-size: 22px; }
 .editor-profile-dialog p { line-height: 1.9; font-size: 14px; }
 .editor-profile-dialog .profile-close { position: absolute; top: 12px; right: 12px; padding: 5px; }
-@container workplane (max-height: 720px) { .layerling-editor .camera-controls { display: grid; grid-template-columns: repeat(2, 44px); } .layerling-editor .camera-controls .editor-profile-control, .layerling-editor .camera-controls .editor-settings-control { grid-column: 1 / -1; justify-self: center; } }
+@container workplane (max-height: 720px) { .layerling-editor .camera-controls { display: grid; grid-template-columns: repeat(2, 44px); } .layerling-editor .camera-controls .editor-profile-control, .layerling-editor .camera-controls .editor-settings-control { grid-column: auto; justify-self: center; } }
 @media (max-width: 1050px) { .calm-home-label { display: none; } .calm-editor-brand strong { font-size: 21px; } .layerling-editor .toolbar-title-row { gap: 10px; padding-inline: 14px; } .calm-file-actions button { padding-inline: 9px; } }
 @media (max-width: 800px) {
   :root, html[data-toolbar-size] { --editor-toolbar-title-height: 130px; }
@@ -101,9 +103,48 @@ html .layerling-editor .toolbar-mode-content, html[data-toolbar-size="large"] .l
   .calm-header-project { grid-column: 1 / -1; width: 100%; }
   .layerling-editor .toolbar-project-name { max-width: none; }
   .layerling-editor .camera-controls { display: grid; grid-template-columns: repeat(2, 44px); }
-  .layerling-editor .camera-controls .editor-profile-control, .layerling-editor .camera-controls .editor-settings-control { grid-column: 1 / -1; justify-self: center; }
+  .layerling-editor .camera-controls .editor-profile-control, .layerling-editor .camera-controls .editor-settings-control { grid-column: auto; justify-self: center; }
 }
 
 .layerling-editor .sketch-camera-controls > button { order: 3; }
-.layerling-editor .sketch-camera-controls .editor-profile-control { order: 1; }
-.layerling-editor .sketch-camera-controls .editor-settings-control { order: 2; }
+.layerling-editor .sketch-camera-controls .editor-profile-control { order: 20; }
+.layerling-editor .sketch-camera-controls .editor-settings-control { order: 21; }
+
+.theme-day-night { display: flex; gap: 8px; }
+.theme-day-night button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--border-strong); border-radius: 7px; color: var(--foreground); background: var(--tile); }
+.theme-day-night button[aria-pressed="true"] { color: var(--foreground); background: var(--tile-hover); outline: 2px solid var(--primary); outline-offset: 1px; }
+html[data-theme="dark"] .layerling-editor .toolbar-section-tools,
+html[data-theme="dark"] .layerling-editor .calm-history-section .toolbar-section-tools { background: #24483e; border-color: #527463; }
+html[data-theme="dark"] .layerling-editor .toolbar-section-label { color: #b9d4c2; }
+html[data-theme="dark"] .layerling-editor .camera-controls,
+html[data-theme="dark"] .editor-more-menu > summary { background: #24483e; border-color: #527463; color: #cbe5d1; }
+html[data-theme="dark"] .layerling-editor .camera-controls > button,
+html[data-theme="dark"] .layerling-editor .camera-controls > div > button { color: #cbe5d1; }
+
+/* Modeling ribbon stacked in a dedicated right rail. */
+.layerling-editor { --cad-tools-width: 272px; }
+.layerling-editor .secondary-toolbar { height: var(--editor-toolbar-title-height); }
+.layerling-editor .editor-body { right: var(--cad-tools-width); }
+html .layerling-editor .toolbar-mode-content,
+html[data-toolbar-size="large"] .layerling-editor .toolbar-mode-content {
+  position: fixed; top: var(--editor-toolbar-title-height); right: 0; left: auto;
+  width: var(--cad-tools-width); height: calc(100dvh - var(--editor-toolbar-title-height));
+  min-height: 0; padding: 62px 8px 16px; display: flex; flex-direction: column;
+  align-items: stretch; gap: 12px; overflow-x: hidden; overflow-y: auto;
+  background: #edf3e8; border-left: 1px solid #aac5b3; border-top: 0;
+}
+.layerling-editor .toolbar-section { width: 100%; height: auto; padding: 0; }
+.layerling-editor .toolbar-section-tools { display: flex; flex-wrap: wrap; justify-content: flex-start; height: auto; min-height: 48px; margin: 0; padding: 3px; gap: 1px; }
+.layerling-editor .toolbar-section-label { height: auto; min-height: 24px; text-align: left; padding: 0 4px; }
+.layerling-editor .sketch-toolbar-ribbon { flex-direction: column; height: auto; gap: 12px; background: transparent; }
+.layerling-editor .sketch-toolbar-ribbon > div { min-width: 0; }
+.layerling-editor .editor-more-menu { top: calc(var(--editor-toolbar-title-height) + 10px); right: 12px; }
+html[data-theme="dark"] .layerling-editor .toolbar-mode-content { background: #193a31; border-color: #527463; }
+.layerling-editor > .shape-menu-dropdown { left: auto; right: calc(var(--cad-tools-width) + 8px); }
+@media (max-width: 800px) {
+  .layerling-editor { --cad-tools-width: 112px; }
+  .layerling-editor .toolbar-section-label { font-size: 10px; }
+  .layerling-editor .toolbar-mode-content .toolbar-icon, .layerling-editor .shape-menu-trigger { min-width: 40px; width: 40px; }
+  .layerling-editor .toolbar-section-tools { padding: 2px; }
+  .layerling-editor > .shape-menu-dropdown { right: 8px; max-width: calc(100vw - 16px); }
+}

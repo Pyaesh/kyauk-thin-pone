@@ -6,7 +6,7 @@ export const WORKPLANE_LINE_ELEVATION = 0;
 export const WORKPLANE_MAJOR_GRID_INTERVAL = 5;
 export const DEFAULT_WORKPLANE_GRID_COLOR = "#7cae96";
 /** The light theme's work-area background and workplane surface, which can be changed in the settings. */
-export const DEFAULT_WORKPLANE_BACKGROUND = "#203937";
+export const DEFAULT_WORKPLANE_BACKGROUND = "#edf3e8";
 export const DEFAULT_WORKPLANE_SURFACE_COLOR = "#dcead9";
 /** The sketch view's background and grid colour in the light theme, which can be changed in the settings. */
 export const DEFAULT_SKETCH_BACKGROUND = "#fcfbf8";
@@ -171,7 +171,7 @@ export function workplaneThemePalette(
         grid: workplaneGridPalette("dark", configuredGridColor, "default", configuredMajorColor),
       }
     : {
-        sceneBackground: configuredBackground,
+        sceneBackground: configuredBackground.toLowerCase() === "#203937" ? DEFAULT_WORKPLANE_BACKGROUND : configuredBackground,
         surface: { color: configuredSurface, opacity: 0.68 },
         grid: workplaneGridPalette("light", configuredGridColor, "default", configuredMajorColor),
       };

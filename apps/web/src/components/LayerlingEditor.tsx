@@ -13164,9 +13164,7 @@ function SecondaryToolbar({
   const closeShapesAfterPick = () => {
     if (!shapesPinnedRef.current) setShapesOpen(false);
   };
-  // On a narrow window the tools wrap onto more rows. Their real height goes
-  // into --editor-toolbar-height, which the workplane, the status and the menus
-  // below the bar are placed by.
+  // The modeling tools live in a side rail; only the header offsets the canvas.
   const toolbarContentRef = useRef<HTMLDivElement | null>(null);
   useLayoutEffect(() => {
     const content = toolbarContentRef.current;
@@ -13175,10 +13173,7 @@ function SecondaryToolbar({
     const apply = () => {
       const styles = getComputedStyle(root);
       const title = parseFloat(styles.getPropertyValue("--editor-toolbar-title-height")) || 44;
-      const minimum = parseFloat(styles.getPropertyValue("--editor-toolbar-tools-height")) || 76;
-      const tools = content.offsetHeight;
-      // A hidden editor measures nothing; it keeps the one-row height.
-      root.style.setProperty("--editor-toolbar-height", `${Math.round(title + Math.max(minimum, tools))}px`);
+      root.style.setProperty("--editor-toolbar-height", `${Math.round(title)}px`);
     };
     apply();
     const observer = new ResizeObserver(apply);
@@ -14021,7 +14016,7 @@ function SecondaryToolbar({
       <div className="toolbar-title-row">
         {/* The brand, in the same corner as on the start page. Not a link:
             leaving the editor is not something to trigger by accident. */}
-        <a className="calm-editor-brand" href="/" title="ဧည့်ခန်း" onClick={async event => { event.preventDefault(); await onHome?.(); window.location.assign("/"); }}><span aria-hidden="true">←</span><span className="calm-home-label">ဧည့်ခန်း</span><strong>ကျောက်သင်ပုန်း</strong></a>
+        <a className="calm-editor-brand" href="/" title="ဧည့်ခန်း" onClick={async event => { event.preventDefault(); await onHome?.(); window.location.assign("/"); }}><span aria-hidden="true">←</span><span className="calm-home-label">ဧည့်ခန်း</span><span className="calm-header-divider" aria-hidden="true" /><strong>ကျောက်သင်ပုန်း</strong></a>
         <div className="toolbar-workspace-tabs" role="tablist" aria-label={t("editor.modeLabel")}>
           <button
             className={toolbarMode === "geometry" ? "active" : ""}
