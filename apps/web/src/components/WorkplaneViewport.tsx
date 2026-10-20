@@ -10236,14 +10236,13 @@ function rebuildWorkplane(
         workspace.gridLinesGrow !== false,
       ));
       const labelPalette = workplaneGridPalette(theme, lineColor, state.palette).major;
-      // The design's name in the near left corner, so a screenshot of the scene
-      // says what it shows - unless it was switched off as a distraction (#192).
+      // Keep the workplane identity fixed while the project name stays editable.
       const label = workspace.showPlateLabels === false ? null : createWorkplaneLabel(
         workspace.width,
         workspace.depth,
         labelPalette.color,
         muted ? labelPalette.opacity * 0.5 : labelPalette.opacity,
-        projectName,
+        "ကျောက်သင်ပုံး",
         "",
         { outline: muted ? undefined : palette.surface.color },
       );
@@ -10397,7 +10396,7 @@ function syncWorkplaneHoverPreview(
 }
 
 const WORKPLANE_LABEL_TEXTURE_WIDTH = 1024;
-const WORKPLANE_LABEL_FONT_STACK = '"Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif';
+const WORKPLANE_LABEL_FONT_STACK = '"Avenir Next", Avenir, "Helvetica Neue", Arial, "Noto Sans Myanmar", "Myanmar Text", Padauk, sans-serif';
 
 /**
  * Flat label along the near edge of a workplane: the design's name on the
