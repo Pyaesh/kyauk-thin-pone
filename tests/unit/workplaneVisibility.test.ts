@@ -49,13 +49,13 @@ describe("hiding the workplane from the camera bar", () => {
     viewport.indexOf('<div className="workplane-control-group">'),
   );
 
-  it("sits right below the orthographic button, above Place workplane", () => {
-    const ortho = viewport.indexOf("onClick={toggleProjection}");
-    const display = viewport.indexOf('<div className="workplane-display-control-group">');
-    const place = viewport.indexOf('<div className="workplane-control-group">');
-    expect(ortho).toBeGreaterThan(-1);
-    expect(display).toBeGreaterThan(ortho);
-    expect(place).toBeGreaterThan(display);
+  it("orders the revised visibility, ruler and section controls before projection and placement", () => {
+    const css = read("apps/web/src/app/kyaukThinPone.css");
+    const order = (name: string) => Number(css.match(new RegExp(`\\.${name} \\{ order: (\\d+);`))?.[1]);
+    expect(order("workplane-display-control-group")).toBeLessThan(order("tape-control-group"));
+    expect(order("tape-control-group")).toBeLessThan(order("section-control-group"));
+    expect(order("section-control-group")).toBeLessThan(order("camera-projection-control"));
+    expect(order("camera-projection-control")).toBeLessThan(order("workplane-control-group"));
   });
 
   it("is a pressed toggle named for what a click does next", () => {

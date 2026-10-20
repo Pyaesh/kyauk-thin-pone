@@ -1,5 +1,7 @@
 "use client";
 
+import { SketchEditorSettings } from "@/components/SketchEditorSettings";
+import { EditorMoreMenu } from "@/components/EditorMoreMenu";
 import { GuideHelpLink } from "@/components/GuideHelpLink";
 import { ShapeMenuPanel } from "@/components/workplane/ShapeMenuPanel";
 import { AlertTriangle, ArrowUpFromLine, Blend, Check, CircleHelp, Percent, Circle as CircleIcon, CloudUpload, Download, Eye, EyeOff, FilePlus2, FolderOpen, Hexagon as HexagonIcon, Info, ListTree, Pencil, Pentagon as PentagonIcon, Rotate3d, Route as RouteIcon, Search, Square as SquareIcon, Star as StarIcon, Triangle as TriangleIcon, X } from "lucide-react";
@@ -170,7 +172,6 @@ import { sketchSelectedPointIds, sketchSelectionCount, toggleSketchSelection } f
 import { applySketchCorners } from "@/lib/sketchFilletChamfer";
 import { revolveAxisShift } from "@/lib/revolveAxis";
 import { buildSketchRevolveMesh, DEFAULT_SKETCH_REVOLVE_SETTINGS, normalizeSketchRevolveSettings, type SketchRevolveMesh } from "@/lib/sketchRevolve";
-import { AppFooter } from "@/components/AppFooter";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
 import { ThemeSwitch } from "@/components/ThemeSwitch";
 import { useFileAccept } from "@/lib/fileAccept";
@@ -12097,6 +12098,7 @@ export function LayerlingEditor({
           addShape(shape);
         }}
       />
+      {toolbarMode === "sketch" && sketchActive ? <SketchEditorSettings workspace={workspaceSettings} snap={snapGrid} onChange={updateProjectWorkspaceSettings} themePreference={themePreference} onThemeChange={onThemePreferenceChange} /> : null}
       <div className="editor-body">
         {outlinerOpen ? (
           <ObjectListPanel
@@ -12203,6 +12205,7 @@ export function LayerlingEditor({
           projectId={editorOpen ? projectId ?? null : null}
           shapes={historyView.shapes ?? viewportShapes}
           selectedIds={historyViewState ? [] : selectedIds}
+          onDropToWorkplane={dropSelectedToWorkplane}
           pickOnly={historyView.pickOnly}
           alignMode={alignMode}
           multiSelect={multiSelect}
@@ -12322,7 +12325,6 @@ export function LayerlingEditor({
           onClose={closeShapeContextMenu}
         />
       ) : null}
-      <AppFooter variant="editor" version={LYL_CREATED_WITH_VERSION} onBugReport={() => void saveBugReport()} />
       {historyViewState && toolbarMode === "geometry" ? (
         <HistoryViewOverlay
           index={historyViewState.index}
@@ -13181,7 +13183,9 @@ function SecondaryToolbar({
     apply();
     const observer = new ResizeObserver(apply);
     observer.observe(content);
+    window.addEventListener("resize", apply);
     return () => {
+      window.removeEventListener("resize", apply);
       observer.disconnect();
       root.style.removeProperty("--editor-toolbar-height");
     };
@@ -13551,26 +13555,10 @@ function SecondaryToolbar({
       <div ref={toolbarContentRef} className={`toolbar-mode-content ${toolbarMode}`}>
         {toolbarMode === "geometry" ? (
           <>
-      {onHome ? (
-        <div className="tool-group editor-nav-group">
-          <div className="toolbar-section toolbar-home-section" data-group="home">
-            <div className="toolbar-section-label">{t("editor.group.home")}</div>
-            <div className="toolbar-section-tools">
-              <button className="toolbar-icon editor-home-control" aria-label={t("editor.homeDashboard")} title={t("editor.homeDashboard")} onClick={onHome}>
-                <ToolbarHomeIcon />
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : null}
       <div className="tool-group left">
-        <div className="toolbar-section" data-group="clipboard" inert={historyViewActive}>
-          <div className="toolbar-section-label">{t("editor.group.clipboard")}</div>
-          <div className="toolbar-section-tools">{leftTools.slice(0, 4).map(renderToolButton)}</div>
-        </div>
-        <div className="toolbar-section" data-group="history">
+        <div className="toolbar-section calm-history-section" data-group="history">
           <div className="toolbar-section-label">{t("editor.group.history")}</div>
-          <div className="toolbar-section-tools">{leftTools.slice(4).map(renderToolButton)}</div>
+          <div className="toolbar-section-tools">{leftTools.slice(0, 6).map(renderToolButton)}</div>
         </div>
         <div className="toolbar-section toolbar-shapes-section" data-group="shapes" ref={shapesMenuRef} inert={historyViewActive}>
           <div className="toolbar-section-label">{t("editor.group.shapes")}</div>
@@ -13790,47 +13778,8 @@ function SecondaryToolbar({
           <div className="toolbar-section-tools">{arrangeTools.map(renderToolButton)}</div>
         </div>
       </div>
-      <div className="toolbar-section toolbar-actions-section" data-group="manage">
-        <div className="toolbar-section-label">{t("editor.group.manage")}</div>
-        <div className="action-buttons">
-          <button
-            className={`action-icon-button ${noteMode ? "active" : ""}`}
-            aria-label={t("editor.tool.note")}
-            aria-pressed={noteMode}
-            title={`${t("editor.tool.note")} (${COMMAND_SHORTCUTS.note})`}
-            onClick={onNoteTool}
-            disabled={historyViewActive}
-          >
-            <ToolbarNoteIcon />
-          </button>
-          <button className="action-icon-button" aria-label={t("editor.import")} title={`${t("editor.import")} (${COMMAND_SHORTCUTS.import})`} onClick={() => onTopPanel("import")} disabled={historyViewActive}>
-            <ToolbarImportIcon />
-          </button>
-          <button className="action-icon-button" aria-label={t("editor.export")} title={`${t("editor.export")} (${COMMAND_SHORTCUTS.export})`} onClick={() => onTopPanel("export")}>
-            <ToolbarVectorExportIcon />
-          </button>
-          <button className="action-icon-button" aria-label={t("editor.workspaceSettings")} title={t("editor.workspaceSettings")} onClick={() => window.dispatchEvent(new Event("layerling:open-workspace-settings"))}>
-            <ToolbarSettingsIcon />
-          </button>
-        </div>
-      </div>
-      <div className="toolbar-section toolbar-actions-section" data-group="help">
-        <div className="toolbar-section-label">{t("editor.group.help")}</div>
-        <div className="action-buttons">
-          <button className="action-icon-button" aria-label={t("palette.open")} title={t("palette.open")} aria-haspopup="dialog" data-layerling-tool="command-search" onClick={openPalette}>
-            <Search className="toolbar-search-icon" aria-hidden="true" />
-          </button>
-          <button className="action-icon-button" aria-label={t("editor.guide")} title={t("editor.guide")} onClick={onGuide}>
-            <ToolbarGuideIcon />
-          </button>
-          <button className="action-icon-button" aria-label={t("editor.keyboardShortcuts")} title={t("editor.keyboardShortcuts")} onClick={onShortcuts}>
-            <ToolbarKeyboardIcon />
-          </button>
-          <button className={`action-icon-button ${interactiveHelpActive ? "active" : ""}`} type="button" aria-label={t("interactiveHelp.title")} title={`${t("interactiveHelp.title")} (${COMMAND_SHORTCUTS["interactive-help"]})`} aria-pressed={interactiveHelpActive} data-layerling-tool="interactive-help" data-help-exempt onClick={onInteractiveHelp}>
-            <CircleHelp className="toolbar-search-icon" aria-hidden="true" />
-          </button>
-        </div>
-      </div>
+
+
           </>
         ) : (
           <div className="sketch-toolbar-ribbon" aria-label={t("sketch.toolbar")}>
@@ -13978,13 +13927,9 @@ function SecondaryToolbar({
                     </button>
                   </div>
                 </div>
-                <div className="toolbar-section sketch-clipboard-section" data-group="clipboard">
-                  <div className="toolbar-section-label">{t("editor.group.clipboard")}</div>
-                  <div className="toolbar-section-tools">{sketchClipboardTools.map(renderToolButton)}</div>
-                </div>
-                <div className="toolbar-section sketch-history-section" data-group="history">
+                <div className="toolbar-section calm-history-section sketch-history-section" data-group="history">
                   <div className="toolbar-section-label">{t("editor.group.history")}</div>
-                  <div className="toolbar-section-tools">
+                  <div className="toolbar-section-tools">{sketchClipboardTools.map(renderToolButton)}
                     <button className={`toolbar-icon ${sketchCanUndo ? "" : "disabled"}`} type="button" aria-label={t("sketch.undo")} title={`${t("status.undo")} (${COMMAND_SHORTCUTS["sketch-undo"]})`} onClick={onSketchUndo} disabled={!sketchCanUndo}>
                       <ToolbarUndoIcon />
                     </button>
@@ -14061,36 +14006,22 @@ function SecondaryToolbar({
               </div>
             )}
             {/* Sketch mode has its own keys; the help opens from here too. */}
-            <div className="toolbar-section toolbar-actions-section" data-group="help">
-              <div className="toolbar-section-label">{t("editor.group.help")}</div>
-              <div className="action-buttons">
-                <button className="action-icon-button" aria-label={t("palette.open")} title={t("palette.open")} aria-haspopup="dialog" data-layerling-tool="command-search" onClick={openPalette}>
-                  <Search className="toolbar-search-icon" aria-hidden="true" />
-                </button>
-                <button className="action-icon-button" aria-label={t("editor.guide")} title={t("editor.guide")} onClick={onGuide}>
-                  <ToolbarGuideIcon />
-                </button>
-                <button className="action-icon-button" aria-label={t("editor.keyboardShortcuts")} title={t("editor.keyboardShortcuts")} onClick={onShortcuts}>
-                  <ToolbarKeyboardIcon />
-                </button>
-                <button className={`action-icon-button ${interactiveHelpActive ? "active" : ""}`} type="button" aria-label={t("interactiveHelp.title")} title={`${t("interactiveHelp.title")} (${COMMAND_SHORTCUTS["interactive-help"]})`} aria-pressed={interactiveHelpActive} data-layerling-tool="interactive-help" data-help-exempt onClick={onInteractiveHelp}>
-                  <CircleHelp className="toolbar-search-icon" aria-hidden="true" />
-                </button>
-              </div>
-            </div>
+
           </div>
         )}
       </div>
+      <EditorMoreMenu>
+        <button type="button" onClick={onNoteTool} disabled={historyViewActive || toolbarMode !== "geometry"}><ToolbarNoteIcon />{t("editor.tool.note")}</button>
+        <button type="button" onClick={onHistoryView} disabled={!canHistoryView || toolbarMode !== "geometry"}><ToolbarHistoryIcon />{t("editor.tool.history")}</button>
+        <button type="button" onClick={openPalette}><Search size={22} />{t("palette.open")}</button>
+        <button type="button" onClick={onGuide}><ToolbarGuideIcon />{t("editor.guide")}</button>
+        <button type="button" onClick={onShortcuts}><ToolbarKeyboardIcon />{t("editor.keyboardShortcuts")}</button>
+        <button type="button" onClick={onInteractiveHelp} aria-pressed={interactiveHelpActive}><CircleHelp size={22} />{t("interactiveHelp.title")}</button>
+      </EditorMoreMenu>
       <div className="toolbar-title-row">
         {/* The brand, in the same corner as on the start page. Not a link:
             leaving the editor is not something to trigger by accident. */}
-        <div className="toolbar-brand">
-          <img src="/assets/kyauk-thin-pone/logo.svg" alt="KyaukThinPone" />
-          <span className="toolbar-brand-text">
-            <span className="toolbar-brand-name">ကျောက်သင်ပုန်း</span>
-            <span className="toolbar-brand-tagline">{t("brand.tagline")}</span>
-          </span>
-        </div>
+        <a className="calm-editor-brand" href="/" title="ဧည့်ခန်း" onClick={async event => { event.preventDefault(); await onHome?.(); window.location.assign("/"); }}><span aria-hidden="true">←</span><span className="calm-home-label">ဧည့်ခန်း</span><strong>ကျောက်သင်ပုန်း</strong></a>
         <div className="toolbar-workspace-tabs" role="tablist" aria-label={t("editor.modeLabel")}>
           <button
             className={toolbarMode === "geometry" ? "active" : ""}
@@ -14112,6 +14043,7 @@ function SecondaryToolbar({
             {t("editor.modeSketch")}
           </button>
         </div>
+        <div className="calm-header-project">
         <div className="toolbar-project-name">
           <label ref={projectNameFieldRef} className="toolbar-project-name-field" title={t("editor.renameProject")}>
             <input
@@ -14140,9 +14072,10 @@ function SecondaryToolbar({
             <Pencil size={13} strokeWidth={2.4} aria-hidden="true" />
           </label>
         </div>
-        <div className="toolbar-title-row-actions">
-          <ThemeSwitch />
-          <LanguageSwitch />
+        <div className="calm-file-actions">
+          <button type="button" onClick={() => onTopPanel("import")} disabled={historyViewActive}>ဖိုင်ဖွင့်</button>
+          <button type="button" onClick={() => onTopPanel("export")}>ဖိုင်ထုတ်</button>
+        </div>
         </div>
       </div>
     </div>
