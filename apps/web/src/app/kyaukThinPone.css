@@ -109,3 +109,14 @@ html .layerling-editor .toolbar-mode-content, html[data-toolbar-size="large"] .l
 .layerling-editor .sketch-camera-controls > button { order: 3; }
 .layerling-editor .sketch-camera-controls .editor-profile-control { order: 20; }
 .layerling-editor .sketch-camera-controls .editor-settings-control { order: 21; }
+
+.theme-day-night { display: flex; gap: 8px; }
+.theme-day-night button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--border-strong); border-radius: 7px; color: var(--foreground); background: var(--tile); }
+.theme-day-night button[aria-pressed="true"] { color: var(--foreground); background: var(--tile-hover); outline: 2px solid var(--primary); outline-offset: 1px; }
+html[data-theme="dark"] .layerling-editor .toolbar-section-tools,
+html[data-theme="dark"] .layerling-editor .calm-history-section .toolbar-section-tools { background: #24483e; border-color: #527463; }
+html[data-theme="dark"] .layerling-editor .toolbar-section-label { color: #b9d4c2; }
+html[data-theme="dark"] .layerling-editor .camera-controls,
+html[data-theme="dark"] .editor-more-menu > summary { background: #24483e; border-color: #527463; color: #cbe5d1; }
+html[data-theme="dark"] .layerling-editor .camera-controls > button,
+html[data-theme="dark"] .layerling-editor .camera-controls > div > button { color: #cbe5d1; }

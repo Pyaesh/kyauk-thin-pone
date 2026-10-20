@@ -1,5 +1,6 @@
 "use client";
 
+import { ThemeChoices } from "@/components/ThemeSwitch";
 import { GuideHelpLink } from "@/components/GuideHelpLink";
 import { MAX_OVERHANG_ANGLE, MIN_OVERHANG_ANGLE } from "@/lib/overhangLimits";
 import { Box as BoxIcon, ChevronDown, Grid3X3, History, Palette, Plus, RotateCcw, Ruler, Trash2, X } from "lucide-react";
@@ -7,7 +8,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useMovablePanel } from "@/lib/useMovablePanel";
 import { createPortal } from "react-dom";
 import { HexColorInput, HexColorPicker } from "react-colorful";
-import { APP_THEME_OPTIONS, type AppThemePreference } from "@/lib/appTheme";
+import { type AppThemePreference } from "@/lib/appTheme";
 import { setToolbarSize, TOOLBAR_SIZE_OPTIONS, type ToolbarSize } from "@/lib/toolbarSize";
 import { useToolbarSize } from "@/lib/useToolbarSize";
 import { useViewCubePosition } from "@/lib/useViewCubePosition";
@@ -726,19 +727,10 @@ export function WorkspaceSettingsModal({
                     checked={workspace.fastMode}
                     onChange={(fastMode) => patchWorkspace({ fastMode })}
                   />
-                  <label className="workspace-select" data-help={t("workspace.theme")}>
+                  <div className="workspace-select" data-help={t("workspace.theme")}>
                     <span>{t("workspace.theme")}</span>
-                    <select
-                      value={themePreference}
-                      onChange={(event) => onThemePreferenceChange?.(event.currentTarget.value as AppThemePreference)}
-                    >
-                      {APP_THEME_OPTIONS.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {t(THEME_LABEL_KEYS[option.value])}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
+                    <ThemeChoices value={themePreference} onChange={value => onThemePreferenceChange?.(value)} />
+                  </div>
                   <label className="workspace-select" data-help={t("workspace.toolbarSize")}>
                     <span>{t("workspace.toolbarSize")}</span>
                     <select

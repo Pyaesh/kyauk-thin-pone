@@ -3,7 +3,7 @@ import { DEFAULT_WORKPLANE_WORKSPACE, normalizeWorkspaceSettings } from "@/lib/w
 
 describe("background, workplane and edge line settings", () => {
   it("start with the KyaukThinPone slate palette, no extra edge lines, black when switched on", () => {
-    expect(DEFAULT_WORKPLANE_WORKSPACE.background).toBe("#203937");
+    expect(DEFAULT_WORKPLANE_WORKSPACE.background).toBe("#edf3e8");
     expect(DEFAULT_WORKPLANE_WORKSPACE.surfaceColor).toBe("#dcead9");
     expect(DEFAULT_WORKPLANE_WORKSPACE.edgeLines).toBe(false);
     expect(DEFAULT_WORKPLANE_WORKSPACE.edgeColor).toBe("#000000");
