@@ -120,3 +120,31 @@ html[data-theme="dark"] .layerling-editor .camera-controls,
 html[data-theme="dark"] .editor-more-menu > summary { background: #24483e; border-color: #527463; color: #cbe5d1; }
 html[data-theme="dark"] .layerling-editor .camera-controls > button,
 html[data-theme="dark"] .layerling-editor .camera-controls > div > button { color: #cbe5d1; }
+
+/* Modeling ribbon stacked in a dedicated right rail. */
+.layerling-editor { --cad-tools-width: 272px; }
+.layerling-editor .secondary-toolbar { height: var(--editor-toolbar-title-height); }
+.layerling-editor .editor-body { right: var(--cad-tools-width); }
+html .layerling-editor .toolbar-mode-content,
+html[data-toolbar-size="large"] .layerling-editor .toolbar-mode-content {
+  position: fixed; top: var(--editor-toolbar-title-height); right: 0; left: auto;
+  width: var(--cad-tools-width); height: calc(100dvh - var(--editor-toolbar-title-height));
+  min-height: 0; padding: 62px 8px 16px; display: flex; flex-direction: column;
+  align-items: stretch; gap: 12px; overflow-x: hidden; overflow-y: auto;
+  background: #edf3e8; border-left: 1px solid #aac5b3; border-top: 0;
+}
+.layerling-editor .toolbar-section { width: 100%; height: auto; padding: 0; }
+.layerling-editor .toolbar-section-tools { display: flex; flex-wrap: wrap; justify-content: flex-start; height: auto; min-height: 48px; margin: 0; padding: 3px; gap: 1px; }
+.layerling-editor .toolbar-section-label { height: auto; min-height: 24px; text-align: left; padding: 0 4px; }
+.layerling-editor .sketch-toolbar-ribbon { flex-direction: column; height: auto; gap: 12px; background: transparent; }
+.layerling-editor .sketch-toolbar-ribbon > div { min-width: 0; }
+.layerling-editor .editor-more-menu { top: calc(var(--editor-toolbar-title-height) + 10px); right: 12px; }
+html[data-theme="dark"] .layerling-editor .toolbar-mode-content { background: #193a31; border-color: #527463; }
+.layerling-editor > .shape-menu-dropdown { left: auto; right: calc(var(--cad-tools-width) + 8px); }
+@media (max-width: 800px) {
+  .layerling-editor { --cad-tools-width: 112px; }
+  .layerling-editor .toolbar-section-label { font-size: 10px; }
+  .layerling-editor .toolbar-mode-content .toolbar-icon, .layerling-editor .shape-menu-trigger { min-width: 40px; width: 40px; }
+  .layerling-editor .toolbar-section-tools { padding: 2px; }
+  .layerling-editor > .shape-menu-dropdown { right: 8px; max-width: calc(100vw - 16px); }
+}

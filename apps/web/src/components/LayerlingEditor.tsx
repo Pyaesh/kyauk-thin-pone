@@ -13164,9 +13164,7 @@ function SecondaryToolbar({
   const closeShapesAfterPick = () => {
     if (!shapesPinnedRef.current) setShapesOpen(false);
   };
-  // On a narrow window the tools wrap onto more rows. Their real height goes
-  // into --editor-toolbar-height, which the workplane, the status and the menus
-  // below the bar are placed by.
+  // The modeling tools live in a side rail; only the header offsets the canvas.
   const toolbarContentRef = useRef<HTMLDivElement | null>(null);
   useLayoutEffect(() => {
     const content = toolbarContentRef.current;
@@ -13175,10 +13173,7 @@ function SecondaryToolbar({
     const apply = () => {
       const styles = getComputedStyle(root);
       const title = parseFloat(styles.getPropertyValue("--editor-toolbar-title-height")) || 44;
-      const minimum = parseFloat(styles.getPropertyValue("--editor-toolbar-tools-height")) || 76;
-      const tools = content.offsetHeight;
-      // A hidden editor measures nothing; it keeps the one-row height.
-      root.style.setProperty("--editor-toolbar-height", `${Math.round(title + Math.max(minimum, tools))}px`);
+      root.style.setProperty("--editor-toolbar-height", `${Math.round(title)}px`);
     };
     apply();
     const observer = new ResizeObserver(apply);
