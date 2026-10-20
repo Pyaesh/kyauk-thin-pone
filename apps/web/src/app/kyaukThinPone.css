@@ -18,3 +18,12 @@ html[lang="my"] .dashboard-brand-name, html[lang="my"] .toolbar-brand-name { fon
 @media (max-width: 600px) { html[lang="my"] .toolbar-brand-name { font-size: 14px; } html[lang="my"] .dashboard-brand-name { font-size: 16px; } }
 
 :root { --group-home: #218877; --group-clipboard: #508c85; --group-history: #3b9c77; --group-shapes: #48856b; --group-visibility: #637f70; --group-combine: #2c786f; --group-modify: #468a75; --group-arrange: #397d6b; --group-manage: #508b81; --group-help: #637f70; --group-sketch: #3a8579; }
+
+.layerling-editor > .shape-menu-dropdown { top: var(--editor-toolbar-height); left: 12px; }
+@media (max-width: 600px) {
+  html .toolbar-mode-content, html[data-toolbar-size="large"] .toolbar-mode-content { flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; height: var(--editor-toolbar-tools-height); min-height: var(--editor-toolbar-tools-height); scrollbar-width: thin; }
+  .toolbar-mode-content .toolbar-section { flex-shrink: 0; }
+  .toolbar-mode-content .tool-group { display: contents; }
+  .sketch-toolbar-ribbon { flex-wrap: nowrap; }
+  html[lang="my"] .toolbar-brand-name { line-height: 1.5; }
+}
