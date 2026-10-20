@@ -203,7 +203,7 @@ export const MESSAGES_MY: Partial<Record<MessageKey, string>> = {
   "gridfinity.labelChamfer": "အစွန်းစောင်းဖြတ်",
   "prop.knurlPattern": "ထပ်ပွားပုံစံ",
   "panel.export": "ဖိုင်ထုတ်",
-  "panel.import": "ဖိုင်သွင်း",
+  "panel.import": "ဖိုင်ဖွင့်",
   "view.cube": "မြင်ကွင်း ရွေးရန်",
   "view.top": "အပေါ်မြင်ကွင်း",
   "view.bottom": "အောက်မြင်ကွင်း",

@@ -8,8 +8,8 @@ type SpriteRect = {
   height: number;
 };
 
-const toolbarSprite = "assets/editor/toolbar-sprite.svg?v=2";
-const vectorToolbarSprite = "assets/editor/vector-toolbar-icons.svg?v=1";
+const toolbarSprite = "/assets/editor/toolbar-sprite.svg?v=2";
+const vectorToolbarSprite = "/assets/editor/vector-toolbar-icons.svg?v=1";
 
 // The drawn height of a sprite icon comes from --sprite-icon-size (35px unless
 // a stylesheet sets it), so the toolbar size setting can scale it from CSS.
