@@ -4,8 +4,8 @@
  */
 
 .my-shapes-section {
-  border-bottom: 1px solid #efe7d9;
-  background: #fffdf9;
+  border-bottom: 1px solid #deeae4;
+  background: #fbfdfc;
 }
 
 .my-shapes-header {
@@ -22,7 +22,7 @@
   align-items: center;
   gap: 6px;
   padding: 4px 6px;
-  color: #604529;
+  color: #345545;
   background: transparent;
   border: 0;
   border-radius: 4px;
@@ -32,7 +32,7 @@
 }
 
 .my-shapes-toggle:hover {
-  background: #f6efe4;
+  background: #e9f1ed;
 }
 
 .my-shapes-toggle svg {
@@ -43,8 +43,8 @@
 .my-shapes-count {
   min-width: 20px;
   padding: 1px 6px;
-  color: #6b4f30;
-  background: #efe4d3;
+  color: #3b604e;
+  background: #dae8e1;
   border-radius: 999px;
   font-size: 12px;
   text-align: center;
@@ -65,9 +65,9 @@
   justify-content: center;
   gap: 5px;
   padding: 0 10px;
-  color: #5c442c;
-  background: #fbfaf8;
-  border: 1px solid #dccdbe;
+  color: #345444;
+  background: #f8fbfa;
+  border: 1px solid #c1d9cd;
   border-radius: 4px;
   cursor: pointer;
   font-size: 13px;
@@ -89,7 +89,7 @@
 .my-shapes-icon-button:hover:not(:disabled),
 .my-shapes-name-form button:hover:not(:disabled) {
   background: #fff;
-  border-color: #c9b49c;
+  border-color: #a0c5b2;
 }
 
 .my-shapes-save-button:disabled,
@@ -109,7 +109,7 @@
 .my-shapes-empty {
   margin: 0;
   padding: 2px 8px 6px;
-  color: #7b6249;
+  color: #4a7a62;
   font-size: 13px;
   line-height: 1.4;
 }
@@ -123,7 +123,7 @@
 }
 
 .my-shapes-name-form label {
-  color: #6b4f30;
+  color: #3b604e;
   font-size: 13px;
   font-weight: 700;
 }
@@ -135,22 +135,22 @@
   min-width: 0;
   height: 30px;
   padding: 0 8px;
-  color: #3f2e1c;
+  color: #23382e;
   background: #fff;
-  border: 1px solid #cdb9a2;
+  border: 1px solid #a6c9b8;
   border-radius: 4px;
   font-size: 14px;
 }
 
 .my-shapes-name-form button[type="submit"] {
   color: #fff;
-  background: #a8662a;
-  border-color: #a8662a;
+  background: #508269;
+  border-color: #508269;
 }
 
 .my-shapes-name-form button[type="submit"]:hover:not(:disabled) {
-  background: #94571f;
-  border-color: #94571f;
+  background: #228771;
+  border-color: #228771;
 }
 
 .my-shape-tile {
@@ -173,7 +173,7 @@
 .my-shape-no-preview {
   flex: 0 0 auto;
   display: block;
-  background: #f1eadf;
+  background: #e2eee8;
   border-radius: 6px;
 }
 
@@ -231,9 +231,9 @@
   align-items: center;
   justify-content: center;
   padding: 0 5px;
-  color: #6b4f30;
+  color: #3b604e;
   background: #fff;
-  border: 1px solid #e3d6c6;
+  border: 1px solid #cadfd4;
   border-radius: 4px;
   cursor: pointer;
   font-size: 12px;
@@ -246,7 +246,7 @@
 }
 
 .my-shape-tile-action:hover {
-  border-color: #c9b49c;
+  border-color: #a0c5b2;
 }
 
 .my-shape-tile-action.danger {
@@ -258,7 +258,7 @@
 .my-shapes-location {
   display: inline-flex;
   overflow: hidden;
-  border: 1px solid #dccdbe;
+  border: 1px solid #c1d9cd;
   border-radius: 4px;
 }
 
@@ -270,12 +270,12 @@
 }
 
 .my-shapes-name-form .my-shapes-location button + button {
-  border-left: 1px solid #dccdbe;
+  border-left: 1px solid #c1d9cd;
 }
 
 .my-shapes-name-form .my-shapes-location button.active {
   color: #fff;
-  background: #7d6245;
+  background: #4a7861;
 }
 
 .my-shapes-group + .my-shapes-group {
@@ -284,7 +284,7 @@
 
 .my-shapes-group-title {
   padding: 0 4px 4px;
-  color: #8a6d4c;
+  color: #51856b;
   font-size: 12px;
   font-weight: 800;
 }
@@ -297,7 +297,7 @@
   gap: 8px;
   padding: 5px 6px 5px 7px;
   background: #fff;
-  border: 1px solid #dccdbe;
+  border: 1px solid #c1d9cd;
   border-radius: 4px;
 }
 
@@ -325,7 +325,7 @@
   align-items: center;
   gap: 6px;
   padding: 4px 6px;
-  color: #604529;
+  color: #345545;
   background: transparent;
   border: 0;
   border-radius: 4px;
@@ -336,7 +336,7 @@
 }
 
 .my-shapes-folder-toggle:hover {
-  background: #f6efe4;
+  background: #e9f1ed;
 }
 
 .my-shapes-folder-toggle svg,
@@ -375,7 +375,7 @@
   align-items: center;
   gap: 6px;
   padding: 2px 4px 2px 6px;
-  color: #604529;
+  color: #345545;
 }
 
 /* Each level moves in a little; three levels still leave room for the names. */
@@ -388,9 +388,9 @@
   height: 30px;
   max-width: 100%;
   padding: 0 6px;
-  color: #3f2e1c;
+  color: #23382e;
   background: #fff;
-  border: 1px solid #cdb9a2;
+  border: 1px solid #a6c9b8;
   border-radius: 4px;
   font-size: 13px;
 }
@@ -409,25 +409,25 @@
 
 html[data-theme="dark"] .my-shapes-section {
   background: rgba(52, 40, 28, 0.6);
-  border-color: #594a3a;
+  border-color: #3a594a;
 }
 
 html[data-theme="dark"] .my-shapes-toggle,
 html[data-theme="dark"] .my-shapes-name-form label {
-  color: #f0e7d9;
+  color: #deebe4;
 }
 
 html[data-theme="dark"] .my-shapes-toggle:hover {
-  background: #463625;
+  background: #294236;
 }
 
 html[data-theme="dark"] .my-shapes-count {
-  color: #f0e7d9;
-  background: #5b4733;
+  color: #deebe4;
+  background: #365847;
 }
 
 html[data-theme="dark"] .my-shapes-empty {
-  color: #cdbca6;
+  color: #a9caba;
 }
 
 html[data-theme="dark"] .my-shapes-save-button,
@@ -435,34 +435,34 @@ html[data-theme="dark"] .my-shapes-icon-button,
 html[data-theme="dark"] .my-shapes-name-form button,
 html[data-theme="dark"] .my-shape-tile-action,
 html[data-theme="dark"] .my-shape-rename {
-  color: #ede4d4;
-  background: #3a2c1f;
-  border-color: #5b4b3a;
+  color: #d9e8e0;
+  background: #22372c;
+  border-color: #3a5b4b;
 }
 
 html[data-theme="dark"] .my-shapes-save-button:hover:not(:disabled),
 html[data-theme="dark"] .my-shapes-icon-button:hover:not(:disabled),
 html[data-theme="dark"] .my-shapes-name-form button:hover:not(:disabled),
 html[data-theme="dark"] .my-shape-tile-action:hover {
-  background: #463625;
-  border-color: #7a644c;
+  background: #294236;
+  border-color: #4c7a63;
 }
 
 html[data-theme="dark"] .my-shapes-name-form button[type="submit"] {
   color: #fff;
-  background: #a8662a;
-  border-color: #a8662a;
+  background: #508269;
+  border-color: #508269;
 }
 
 html[data-theme="dark"] .my-shapes-name-form input,
 html[data-theme="dark"] .my-shape-rename input {
-  color: #f0e7d9;
-  background: #2c2117;
-  border-color: #6b5741;
+  color: #deebe4;
+  background: #192a22;
+  border-color: #416b56;
 }
 
 html[data-theme="dark"] .my-shape-no-preview {
-  background: #463625;
+  background: #294236;
 }
 
 html[data-theme="dark"] .my-shape-tile-action.danger {
@@ -473,16 +473,16 @@ html[data-theme="dark"] .my-shape-tile-action.danger {
 
 html[data-theme="dark"] .my-shapes-location,
 html[data-theme="dark"] .my-shapes-name-form .my-shapes-location button + button {
-  border-color: #5b4b3a;
+  border-color: #3a5b4b;
 }
 
 html[data-theme="dark"] .my-shapes-name-form .my-shapes-location button.active {
   color: #fff;
-  background: #8a6a46;
+  background: #4f8168;
 }
 
 html[data-theme="dark"] .my-shapes-group-title {
-  color: #cdbca6;
+  color: #a9caba;
 }
 
 html[data-theme="dark"] .my-shape-tile-actions {
@@ -491,19 +491,19 @@ html[data-theme="dark"] .my-shape-tile-actions {
 
 html[data-theme="dark"] .my-shapes-folder-toggle,
 html[data-theme="dark"] .my-shapes-folder-rename {
-  color: #f0e7d9;
+  color: #deebe4;
 }
 
 html[data-theme="dark"] .my-shapes-folder-toggle:hover {
-  background: #463625;
+  background: #294236;
 }
 
 html[data-theme="dark"] .my-shapes-folder-rename input,
 html[data-theme="dark"] .my-shapes-folder-select,
 html[data-theme="dark"] .my-shape-move-select {
-  color: #f0e7d9;
-  background: #2c2117;
-  border-color: #6b5741;
+  color: #deebe4;
+  background: #192a22;
+  border-color: #416b56;
 }
 
 html[data-theme="dark"] .my-shapes-form-problem {

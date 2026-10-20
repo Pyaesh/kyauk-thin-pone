@@ -1,5 +1,7 @@
 "use client";
 
+import { suggestDesignName } from "@/lib/kyaukThinPone";
+
 import { Archive, ArchiveRestore, ArrowLeft, Clock3, Copy, EllipsisVertical, Folder, FolderInput, FolderKanban, FolderPlus, FolderUp, Grid3X3, List, Pencil, Plus, RefreshCw, Search, Server, ShieldAlert, SlidersHorizontal, Sparkles, Trash2, X } from "lucide-react";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type DragEvent } from "react";
 import { AppFooter } from "@/components/AppFooter";
@@ -1450,7 +1452,7 @@ export default function Home() {
   }, []);
 
   const createAndOpenProject = (name?: string) => {
-    const project = newProject(name ?? t("dashboard.untitledDesign", { number: projects.length + 1 }), projects.length, 0, openFolderId);
+    const project = newProject(name ?? suggestDesignName(projects.length + 1), projects.length, 0, openFolderId);
     setProjectShapesById((current) => ({
       ...current,
       [project.id]: projectShapeCacheEntry(project.revision ?? project.updatedAt, []),
@@ -2940,9 +2942,9 @@ function Dashboard({
     <main className="dashboard-shell">
       <header className="dashboard-topbar">
         <a className="dashboard-brand" href="./" aria-label={t("brand.home")}>
-          <img src="/assets/layerling/layerling-logo.svg" alt="" />
+          <img src="/assets/kyauk-thin-pone/logo.svg" alt="" />
           <span className="dashboard-brand-text">
-            <span className="dashboard-brand-name">layerling</span>
+            <span className="dashboard-brand-name">ကျောက်သင်ပုန်း</span>
             <span className="dashboard-tagline">{t("brand.tagline")}</span>
           </span>
         </a>

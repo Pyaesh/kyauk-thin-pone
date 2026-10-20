@@ -16,6 +16,7 @@ describe("workplane settings helpers", () => {
       ...DEFAULT_WORKPLANE_WORKSPACE,
       width: 300,
       depth: 250,
+      printer: "",
       background: "#ffffff",
     };
 

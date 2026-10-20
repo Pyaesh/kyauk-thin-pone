@@ -1,3 +1,20 @@
+# ကျောက်သင်ပုန်း · KyaukThinPone
+
+A Myanmar-localized CAD editor for **3DPMM**, based on [Layerling](https://github.com/henmedia/layerling), itself derived from SketchForge-3D.
+
+This fork preserves Layerling's CAD tools, adds a Burmese-first interface with English fallback, applies 3DPMM green/slate colours, and defaults new workplanes to Bambu Lab A1. It is currently a review preview; it does not replace the live 3DPMM editor.
+
+- **License:** AGPL-3.0-only. Original copyright and license notices are retained below and in `LICENSE`.
+- **Source:** https://github.com/Pyaesh/kyauk-thin-pone
+- **Hosting:** static export at the root of a dedicated hostname; no public shared project store or MCP bridge is enabled.
+- **Localization:** first-pass Burmese core controls; advanced labels and most guide chapters fall back to English.
+- **Compatibility:** Layerling `.lyl` projects are supported. Existing 3DPMM studio JSON drafts use a different format; import a mesh export to reuse their geometry.
+- **Setup, preview and validation:** [docs/3DPMM-PREVIEW.md](docs/3DPMM-PREVIEW.md).
+
+---
+
+## Upstream documentation and attribution
+
 <div align="center">
   <table>
     <tr>

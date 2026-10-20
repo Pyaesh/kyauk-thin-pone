@@ -4,7 +4,7 @@ import { Heart, Sparkles } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { LANGUAGE_INFO, t, type Language } from "@/lib/i18n";
 import { useLanguage } from "@/lib/useLanguage";
-import { SOURCE_CODE_URL, releaseNotesUrl, type AppUpdateInfo } from "@/lib/appUpdate";
+import { SOURCE_CODE_URL, SOURCE_CODE_VERSION_URL, releaseNotesUrl, type AppUpdateInfo } from "@/lib/appUpdate";
 import { useAppUpdate } from "@/lib/useAppUpdate";
 import { SHOW_WHATS_NEW_EVENT } from "@/lib/useWhatsNew";
 import { InstallAppHint } from "@/components/InstallAppHint";
@@ -166,6 +166,9 @@ export function AppFooter({
       </div>
       <div className="dashboard-legal-group">
         {joinWithDots([
+          <a href="https://3dpmm.confotype.com/" key="3dpmm">3DPMM</a>,
+          <a href={SOURCE_CODE_VERSION_URL} target="_blank" rel="noreferrer" key="source">Source code · AGPL-3.0</a>,
+          <a href="https://github.com/henmedia/layerling" target="_blank" rel="noreferrer" key="upstream">Based on Layerling</a>,
           <a href={readmeUrl(language)} target="_blank" rel="noreferrer" key="readme">
             {t("dashboard.projectOnGitHub")}
           </a>,

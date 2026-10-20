@@ -1,7 +1,10 @@
-export const DEFAULT_SOURCE_CODE_URL = "https://github.com/henmedia/layerling";
+export const DEFAULT_SOURCE_CODE_URL = "https://github.com/Pyaesh/kyauk-thin-pone";
 
 export const SOURCE_CODE_URL =
   process.env.NEXT_PUBLIC_SOURCE_CODE_URL?.trim() || DEFAULT_SOURCE_CODE_URL;
+
+// Pin the source link to the exact Git revision used by a build when available.
+export const SOURCE_CODE_VERSION_URL = `${SOURCE_CODE_URL.replace(/\/+$/, "")}/tree/${process.env.NEXT_PUBLIC_SOURCE_REVISION || "main"}`;
 
 // The release list rather than the tag of this build: a fork that never
 // publishes a release still lands on a page that exists, and readers see what

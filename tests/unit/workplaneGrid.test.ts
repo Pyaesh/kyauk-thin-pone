@@ -57,7 +57,7 @@ describe("workplane grid geometry", () => {
 
   it("takes a chosen surface colour in the light theme only", () => {
     expect(workplaneThemePalette("light", "#fbf8f0", undefined, "default", "#e0e0e0").surface.color).toBe("#e0e0e0");
-    expect(workplaneThemePalette("light", "#fbf8f0").surface.color).toBe("#fdf4dd");
+    expect(workplaneThemePalette("light", "#fbf8f0").surface.color).toBe("#dcead9");
     expect(workplaneThemePalette("dark", "#fbf8f0", undefined, "default", "#e0e0e0").surface.color).toBe(workplaneThemePalette("dark", "#fbf8f0").surface.color);
   });
 

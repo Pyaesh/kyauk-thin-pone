@@ -4,10 +4,10 @@ const WORKPLANE_BOUNDARY_EPSILON = 0.0001;
 
 export const WORKPLANE_LINE_ELEVATION = 0;
 export const WORKPLANE_MAJOR_GRID_INTERVAL = 5;
-export const DEFAULT_WORKPLANE_GRID_COLOR = "#c08a12";
+export const DEFAULT_WORKPLANE_GRID_COLOR = "#7cae96";
 /** The light theme's work-area background and workplane surface, which can be changed in the settings. */
-export const DEFAULT_WORKPLANE_BACKGROUND = "#fbf8f0";
-export const DEFAULT_WORKPLANE_SURFACE_COLOR = "#fdf4dd";
+export const DEFAULT_WORKPLANE_BACKGROUND = "#203937";
+export const DEFAULT_WORKPLANE_SURFACE_COLOR = "#dcead9";
 /** The sketch view's background and grid colour in the light theme, which can be changed in the settings. */
 export const DEFAULT_SKETCH_BACKGROUND = "#fcfbf8";
 export const DEFAULT_SKETCH_GRID_COLOR = "#d9822b";
@@ -133,17 +133,17 @@ function baseWorkplaneGridPalette(theme: ResolvedAppTheme, configuredColor: stri
   }
   if (theme === "dark") {
     return {
-      minor: { color: "#6b5a2a", opacity: 0.5 },
-      major: { color: "#8f7526", opacity: 0.72 },
-      axis: { color: "#c9a23c", opacity: 0.92 },
-      border: { color: "#b08f2f", opacity: 0.88 },
+      minor: { color: "#456653", opacity: 0.5 },
+      major: { color: "#7cae96", opacity: 0.72 },
+      axis: { color: "#b4d8be", opacity: 0.92 },
+      border: { color: "#94bda0", opacity: 0.88 },
     };
   }
   return {
-    minor: { color: "#e0c377", opacity: 0.55 },
-    major: { color: "#c08a12", opacity: 0.7 },
-    axis: { color: "#9c720c", opacity: 0.88 },
-    border: { color: "#b8830f", opacity: 0.9 },
+    minor: { color: "#7cae96", opacity: 0.55 },
+    major: { color: "#648c75", opacity: 0.7 },
+    axis: { color: "#4a7560", opacity: 0.88 },
+    border: { color: "#648c75", opacity: 0.9 },
   };
 }
 
@@ -166,8 +166,8 @@ export function workplaneThemePalette(
   }
   return theme === "dark"
     ? {
-        sceneBackground: "#141210",
-        surface: { color: "#332b16", opacity: 0.9 },
+        sceneBackground: "#172e2b",
+        surface: { color: "#29443a", opacity: 0.9 },
         grid: workplaneGridPalette("dark", configuredGridColor, "default", configuredMajorColor),
       }
     : {
