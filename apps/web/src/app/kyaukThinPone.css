@@ -27,3 +27,83 @@ html[lang="my"] .dashboard-brand-name, html[lang="my"] .toolbar-brand-name { fon
   .sketch-toolbar-ribbon { flex-wrap: nowrap; }
   html[lang="my"] .toolbar-brand-name { line-height: 1.5; }
 }
+
+/* Calm two-row editor chrome. The dashboard retains its own layout. */
+:root, html[data-toolbar-size] { --editor-toolbar-title-height: 80px; }
+.layerling-editor { --editor-footer-height: 0px; }
+html .layerling-editor .toolbar-title-row { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 16px; padding: 12px 22px; background: #193e35; color: #f3f7e9; border-bottom: 4px solid #ad9968; }
+.calm-editor-brand { display: flex; align-items: center; gap: 12px; color: #f3f7e9; text-decoration: none; min-width: 0; white-space: nowrap; }
+.calm-editor-brand > span:first-child { font-size: 24px; }
+.calm-editor-brand strong { font-size: 25px; font-weight: 500; }
+.calm-home-label { font-size: 13px; }
+.layerling-editor .toolbar-workspace-tabs { height: auto; border: 1px solid #769a83; border-radius: 7px; padding: 3px; gap: 4px; background: #244d40; }
+.layerling-editor .toolbar-workspace-tabs button { min-height: 42px; padding: 7px 17px; color: #e7eedf; background: transparent; border: 0; border-radius: 4px; font-size: 14px; }
+.layerling-editor .toolbar-workspace-tabs button.active { color: #193e35; background: #d2e5b8; box-shadow: none; border: 0; }
+.calm-header-project { display: flex; gap: 9px; align-items: center; min-width: 0; justify-content: flex-end; }
+.layerling-editor .toolbar-project-name { padding: 0; height: auto; flex: 1 1 180px; max-width: 260px; }
+.layerling-editor .toolbar-project-name-field { width: 100%; }
+.layerling-editor .toolbar-project-name-field input { min-height: 44px; border: 1px solid #8ea78d; background: #f3f7ed; color: #214c3b; border-radius: 5px; width: 100%; }
+.calm-file-actions { display: flex; gap: 7px; flex-shrink: 0; }
+.calm-file-actions button { min-height: 44px; padding: 8px 12px; color: #e7eedf; background: #315c4c; border: 1px solid #789680; border-radius: 5px; font-size: 13px; white-space: nowrap; }
+.calm-file-actions button:hover { background: #426c58; }
+.calm-file-actions button:disabled { opacity: .4; }
+html .layerling-editor .toolbar-mode-content, html[data-toolbar-size="large"] .layerling-editor .toolbar-mode-content { flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; width: calc(100% - 60px); right: 60px; min-height: var(--editor-toolbar-tools-height); height: var(--editor-toolbar-tools-height); scrollbar-width: thin; }
+.layerling-editor .toolbar-mode-content .tool-group { display: contents; }
+.layerling-editor .toolbar-spacer { display: none; }
+.layerling-editor .toolbar-section { flex-shrink: 0; min-width: 0; padding: 0 4px; }
+.layerling-editor .toolbar-section-label { font-weight: 500; color: #4c7461; }
+.layerling-editor .toolbar-section-tools { border: 1px solid #b6cbb7; border-radius: 5px; background: #eef4e8; padding: 0 2px; gap: 1px; }
+.layerling-editor .toolbar-mode-content .toolbar-icon, .layerling-editor .shape-menu-trigger { min-width: 40px; width: 40px; height: 44px; padding: 6px; }
+.layerling-editor .toolbar-mode-content .toolbar-icon svg { width: 27px; height: 27px; }
+.layerling-editor .calm-history-section .toolbar-section-tools { border-color: #a9bcb2; background: #edf1ec; }
+.layerling-editor .calm-history-section button[data-layerling-tool="undo"] { margin-left: 5px; border-left: 1px solid #bdcbc1; border-radius: 0; }
+.editor-more-menu { position: absolute; top: calc(var(--editor-toolbar-title-height) + 19px); right: 10px; z-index: 60; }
+.editor-more-menu > summary { display: grid; place-items: center; width: 42px; height: 42px; list-style: none; border: 1px solid #a9bfb0; border-radius: 5px; color: #214c3b; background: #edf3e8; cursor: pointer; }
+.editor-more-menu > summary::-webkit-details-marker { display: none; }
+.editor-more-menu > summary:focus-visible { outline: 3px solid #218877; outline-offset: 2px; }
+.editor-more-content { position: absolute; top: 49px; right: 0; width: min(320px, calc(100vw - 20px)); max-height: calc(100dvh - var(--editor-toolbar-height) - 20px); overflow-y: auto; border: 1px solid #acc5b4; border-radius: 9px; padding: 12px; background: var(--panel); color: var(--foreground); box-shadow: 0 8px 30px #122f3440; }
+.editor-more-actions { display: flex; flex-direction: column; gap: 4px; }
+.editor-more-actions button { min-height: 44px; display: flex; align-items: center; gap: 12px; padding: 8px; font-size: 13px; text-align: left; border-radius: 5px; }
+.editor-more-actions button:hover { background: var(--tile-hover); }
+.editor-more-actions button:disabled { opacity: .35; }
+.editor-more-actions svg { width: 22px; height: 22px; flex-shrink: 0; }
+.editor-more-preferences { display: flex; gap: 12px; padding: 12px 0; border-block: 1px solid var(--border); margin-block: 10px; }
+.editor-more-links { display: grid; gap: 10px; font-size: 13px; }
+.editor-more-links a { color: var(--primary); text-decoration: underline; }
+.layerling-editor .camera-controls { display: flex; flex-direction: column; grid-template-columns: none; transform: none; gap: 3px; padding: 5px; background: #edf4e9; border-color: #aac5b3; border-radius: 12px; }
+.layerling-editor .camera-controls > button, .layerling-editor .camera-controls > div { order: 0; }
+.layerling-editor .camera-controls .editor-profile-control { order: 1; }
+.layerling-editor .camera-controls .editor-settings-control { order: 2; }
+.layerling-editor .camera-controls .camera-home-control { order: 3; }
+.layerling-editor .camera-controls .camera-fit-control { order: 4; }
+.layerling-editor .camera-controls .workplane-display-control-group { order: 5; }
+.layerling-editor .camera-controls .tape-control-group { order: 6; }
+.layerling-editor .camera-controls .section-control-group { order: 7; }
+.layerling-editor .camera-controls .camera-projection-control { order: 8; }
+.layerling-editor .camera-controls .workplane-control-group { order: 9; }
+.layerling-editor .camera-controls .camera-drop-control { order: 10; }
+.layerling-editor .camera-controls .camera-zoom-button { order: 11; }
+.layerling-editor .camera-controls .camera-touch-rotate { order: 12; }
+.layerling-editor .camera-controls .corner-ruler-control-group { display: none; }
+.layerling-editor .camera-controls > button, .layerling-editor .camera-controls > div > button { width: 44px; height: 43px; color: #214c3b; }
+.editor-profile-dialog { position: fixed; inset: 0; margin: auto; width: min(380px, calc(100vw - 28px)); padding: 28px; background: #f3f7ed; color: #214c3b; border: 1px solid #acc5b4; border-radius: 12px; }
+.editor-profile-dialog::backdrop { background: #102a28aa; }
+.editor-profile-dialog h2 { margin: 14px 0; font-size: 22px; }
+.editor-profile-dialog p { line-height: 1.9; font-size: 14px; }
+.editor-profile-dialog .profile-close { position: absolute; top: 12px; right: 12px; padding: 5px; }
+@container workplane (max-height: 720px) { .layerling-editor .camera-controls { display: grid; grid-template-columns: repeat(2, 44px); } .layerling-editor .camera-controls .editor-profile-control, .layerling-editor .camera-controls .editor-settings-control { grid-column: 1 / -1; justify-self: center; } }
+@media (max-width: 1050px) { .calm-home-label { display: none; } .calm-editor-brand strong { font-size: 21px; } .layerling-editor .toolbar-title-row { gap: 10px; padding-inline: 14px; } .calm-file-actions button { padding-inline: 9px; } }
+@media (max-width: 800px) {
+  :root, html[data-toolbar-size] { --editor-toolbar-title-height: 130px; }
+  html .layerling-editor .toolbar-title-row { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: 44px 48px; padding: 8px 10px; gap: 8px; }
+  .calm-editor-brand strong { font-size: 18px; } .calm-editor-brand { gap: 7px; }
+  .layerling-editor .toolbar-workspace-tabs button { min-height: 39px; padding: 7px 9px; font-size: 12px; }
+  .calm-header-project { grid-column: 1 / -1; width: 100%; }
+  .layerling-editor .toolbar-project-name { max-width: none; }
+  .layerling-editor .camera-controls { display: grid; grid-template-columns: repeat(2, 44px); }
+  .layerling-editor .camera-controls .editor-profile-control, .layerling-editor .camera-controls .editor-settings-control { grid-column: 1 / -1; justify-self: center; }
+}
+
+.layerling-editor .sketch-camera-controls > button { order: 3; }
+.layerling-editor .sketch-camera-controls .editor-profile-control { order: 1; }
+.layerling-editor .sketch-camera-controls .editor-settings-control { order: 2; }

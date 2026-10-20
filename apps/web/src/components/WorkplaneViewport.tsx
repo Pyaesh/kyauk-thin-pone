@@ -1,5 +1,6 @@
 "use client";
 
+import { EditorUtilityControls, TapeMeasureIcon, WorkplanePlacementIcon, DropToPlaneIcon } from "@/components/EditorUtilityControls";
 import { markEscapeHandled } from "@/lib/escapeHandled";
 import { ArrowDownToLine, Check, ChevronLeft, ChevronRight, Crosshair, Cuboid, Download, Eye, EyeOff, FlipHorizontal, GripVertical, Home, Layers, Minus, MousePointer2, PanelsTopLeft, Plus, Rotate3d, RotateCcw, Ruler, RulerDimensionLine, Slice, Spline, Trash2, X } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type Dispatch, type DragEvent, type MouseEvent as ReactMouseEvent, type MutableRefObject, type PointerEvent as ReactPointerEvent, type ReactNode, type SetStateAction, type WheelEvent as ReactWheelEvent } from "react";
@@ -337,6 +338,7 @@ const MODIFIER_EDGE_DEPTH_PULL = 0.997;
 type WorkplaneViewportProps = {
   shapes: WorkplaneShape[];
   selectedIds: string[];
+  onDropToWorkplane?: () => void;
   alignMode: boolean;
   /** Select multiple (touch has no Shift): a tap on a body adds it to the selection or takes it out (#337). */
   multiSelect?: boolean;
@@ -3283,6 +3285,7 @@ function MovableSectionPanel({ children }: { children: (handleProps: ReturnType<
 export function WorkplaneViewport({
   shapes,
   selectedIds,
+  onDropToWorkplane,
   alignMode,
   multiSelect = false,
   onMultiSelectEnd,
@@ -8889,13 +8892,12 @@ export function WorkplaneViewport({
           </button>
         ) : (
           <>
-            <button className="camera-controls-toggle" aria-label={t("camera.hide")} title={t("camera.hideShort")} aria-expanded={true} onClick={collapseCameraControls}>
-              <ChevronLeft size={24} strokeWidth={2.25} aria-hidden="true" />
-            </button>
-            <button aria-label={t("camera.home")} aria-keyshortcuts="Home" title={t("camera.shortcut", { label: t("camera.home"), keys: "Home" })} onClick={resetView}>
+            <EditorUtilityControls />
+            <button className="camera-home-control" aria-label={t("camera.home")} aria-keyshortcuts="Home" title={t("camera.shortcut", { label: t("camera.home"), keys: "Home" })} onClick={resetView}>
               <Home size={24} strokeWidth={2.25} />
             </button>
             <button
+              className="camera-fit-control"
               aria-label={t("camera.focusSelection")}
               aria-keyshortcuts="F Shift+F"
               title={t("camera.shortcut", { label: t("camera.focusSelection"), keys: "F" })}
@@ -8924,19 +8926,6 @@ export function WorkplaneViewport({
                 <Rotate3d size={26} strokeWidth={2.15} />
               </button>
             ) : null}
-            <button
-              className={orthographicView ? "active" : ""}
-              aria-label={t("camera.orthographic")}
-              aria-keyshortcuts="O"
-              aria-pressed={orthographicView}
-              title={t("camera.shortcut", {
-                label: orthographicView ? t("camera.perspective") : t("camera.orthographic"),
-                keys: "O",
-              })}
-              onClick={toggleProjection}
-            >
-              <Cuboid size={24} strokeWidth={2.15} aria-hidden="true" />
-            </button>
             <div className="workplane-display-control-group">
               <button
                 className={workplaneLayerHidden ? "active" : ""}
@@ -8957,7 +8946,7 @@ export function WorkplaneViewport({
                 disabled={splitActive}
                 onClick={togglePlacementWorkplane}
               >
-                <PanelsTopLeft size={25} strokeWidth={2.1} aria-hidden="true" />
+                <WorkplanePlacementIcon size={25} />
               </button>
               {!placementWorkplaneIsBase(placementWorkplane) && onToggleWorkplaneHidden ? (
                 <button
@@ -8995,7 +8984,7 @@ export function WorkplaneViewport({
                 disabled={splitActive}
                 onClick={toggleTapeTools}
               >
-                <RulerDimensionLine size={26} strokeWidth={2.2} aria-hidden="true" />
+                <TapeMeasureIcon size={26} strokeWidth={2.2} aria-hidden="true" />
               </button>
               {tapeToolsOpen ? (
                 <MovableTapePanel>
@@ -9014,6 +9003,7 @@ export function WorkplaneViewport({
                   <button className="tape-clear-button" aria-label={t("camera.deleteAllMeasurements")} title={t("camera.deleteAllMeasurements")} onClick={requestClearTape}>
                     <Trash2 size={19} strokeWidth={2.25} aria-hidden="true" />
                   </button>
+                  <button aria-label={t("camera.cornerRulerTool")} title={t("camera.cornerRulerTool")} aria-pressed={cornerRulerMode} onClick={toggleCornerRulerTool}><FramingSquareIcon size={23} aria-hidden="true" /></button>
                   <GuideHelpLink section="tapeMeasure" className="tape-popover-help" iconSize={20} strokeWidth={2.25} />
                 </MovableTapePanel>
               ) : null}
@@ -9302,6 +9292,20 @@ export function WorkplaneViewport({
                 </MovableSectionPanel>
               ) : null}
             </div>
+            <button
+              className={`camera-projection-control ${orthographicView ? "active" : ""}`}
+              aria-label={t("camera.orthographic")}
+              aria-keyshortcuts="O"
+              aria-pressed={orthographicView}
+              title={t("camera.shortcut", {
+                label: orthographicView ? t("camera.perspective") : t("camera.orthographic"),
+                keys: "O",
+              })}
+              onClick={toggleProjection}
+            >
+              <Cuboid size={24} strokeWidth={2.15} aria-hidden="true" />
+            </button>
+            <button className="camera-drop-control" aria-label={t("editor.tool.dropToWorkplane")} title={t("editor.tool.dropToWorkplane")} disabled={!onDropToWorkplane || selectedIds.length === 0 || shapes.some(shape => selectedIds.includes(shape.id) && shape.locked)} onClick={onDropToWorkplane}><DropToPlaneIcon size={25} /></button>
           </>
         )}
       </div>

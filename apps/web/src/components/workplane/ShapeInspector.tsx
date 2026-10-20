@@ -4456,7 +4456,7 @@ function ThreadHeadPreview({ head }: { head: ThreadHead }) {
 }
 
 function GearTypePreview({ type }: { type: GearType }) {
-  return <img src={`assets/editor/gear-types/${type}.png`} alt="" aria-hidden="true" />;
+  return <img src={`/assets/editor/gear-types/${type}.png`} alt="" aria-hidden="true" />;
 }
 
 function GearTypeSelector({ value, disabled, onChange }: { value: GearType; disabled?: boolean; onChange: (value: GearType) => void }) {
