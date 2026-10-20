@@ -53,7 +53,7 @@
   width: 82px;
   height: 82px;
   perspective: 420px;
-  color: #afa294;
+  color: #94afa2;
   font-size: 10px;
   font-weight: 800;
   line-height: 1;
@@ -89,7 +89,7 @@
   width: 58px;
   height: 58px;
   background: rgba(255, 255, 255, 0.9);
-  border: 2px solid #d7cdc3;
+  border: 2px solid #c3d7cd;
   padding: 0;
   color: inherit;
   font: inherit;
@@ -101,8 +101,8 @@
 
 .cube-face:hover,
 .cube-face:focus-visible {
-  color: #796148;
-  border-color: #b68f65;
+  color: #497861;
+  border-color: #72a98e;
   outline: none;
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.72),
@@ -116,18 +116,18 @@
 
 .cube-bottom {
   transform: rotateX(90deg) translateZ(29px);
-  color: #bcb1a6;
+  color: #a6bcb1;
   background: rgba(247, 243, 238, 0.9);
 }
 
 .cube-front {
   transform: translateZ(29px);
-  color: #a49686;
+  color: #86a495;
 }
 
 .cube-back {
   transform: rotateY(180deg) translateZ(29px);
-  color: #bcb1a6;
+  color: #a6bcb1;
 }
 
 .cube-right {
@@ -166,26 +166,26 @@
 }
 
 html[data-theme="dark"] .cube-face {
-  color: #c1a991;
+  color: #94bea9;
   background: rgba(56, 44, 31, 0.94);
-  border-color: #736353;
+  border-color: #537363;
   box-shadow: inset 0 0 0 1px rgba(221, 198, 173, 0.08);
 }
 
 html[data-theme="dark"] .cube-top {
-  color: #eee6d7;
+  color: #dce9e2;
   background: rgba(70, 56, 42, 0.96);
 }
 
 html[data-theme="dark"] .cube-bottom {
-  color: #8c7761;
+  color: #618c77;
   background: rgba(42, 32, 21, 0.94);
 }
 
 html[data-theme="dark"] .cube-face:hover,
 html[data-theme="dark"] .cube-face:focus-visible {
-  color: #faf7f2;
-  border-color: #d48636;
+  color: #f4f8f6;
+  border-color: #68a285;
   box-shadow: inset 0 0 0 1px rgba(218, 141, 57, 0.2), 0 0 0 2px rgba(199, 122, 40, 0.16);
 }
 

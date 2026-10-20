@@ -13270,7 +13270,7 @@ function SecondaryToolbar({
     if (!shapesOpen) return;
     // Pinned open, a click elsewhere is the click that puts the shape, and Esc cancels the placing: neither closes the panel.
     const closeOnPointerDown = (event: PointerEvent) => {
-      if (!shapesPinnedRef.current && !shapesMenuRef.current?.contains(event.target as Node)) setShapesOpen(false);
+      if (!shapesPinnedRef.current && !shapesMenuRef.current?.contains(event.target as Node) && !(event.target instanceof Element && event.target.closest(".shape-menu-dropdown, .sketch-shape-menu-dropdown"))) setShapesOpen(false);
     };
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape" && !shapesPinnedRef.current) setShapesOpen(false);
@@ -14085,9 +14085,9 @@ function SecondaryToolbar({
         {/* The brand, in the same corner as on the start page. Not a link:
             leaving the editor is not something to trigger by accident. */}
         <div className="toolbar-brand">
-          <img src="/assets/layerling/layerling-logo.svg" alt="Layerling" />
+          <img src="/assets/kyauk-thin-pone/logo.svg" alt="KyaukThinPone" />
           <span className="toolbar-brand-text">
-            <span className="toolbar-brand-name">layerling</span>
+            <span className="toolbar-brand-name">ကျောက်သင်ပုန်း</span>
             <span className="toolbar-brand-tagline">{t("brand.tagline")}</span>
           </span>
         </div>

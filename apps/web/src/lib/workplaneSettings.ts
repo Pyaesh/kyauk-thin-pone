@@ -38,10 +38,10 @@ export function booleanTriangleLimitPreset(limit: number): BooleanTriangleLimitP
 }
 
 export const DEFAULT_WORKPLANE_WORKSPACE: WorkplaneWorkspaceSettings = {
-  width: 200,
-  depth: 200,
-  sizePreset: "200 x 200 mm",
-  printer: "",
+  width: 256,
+  depth: 256,
+  sizePreset: "256 x 256 mm",
+  printer: "bambu-lab-a1",
   gridBlockSize: 5,
   gridBlockPreset: "5 mm",
   gridColor: DEFAULT_WORKPLANE_GRID_COLOR,

@@ -16,9 +16,9 @@
  * (Čeština, Dansk, Deutsch, Français, ...); then the others, by the name in their own script.
  * A new language goes in at its place, not at the end.
  */
-export const LANGUAGES = ["en", "cs", "da", "de", "fr", "it", "hu", "nl", "pl", "sl", "tr", "ru", "ar", "ja"] as const;
+export const LANGUAGES = ["en", "cs", "da", "de", "fr", "it", "hu", "nl", "pl", "sl", "tr", "ru", "ar", "ja", "my"] as const;
 export type Language = (typeof LANGUAGES)[number];
-export const DEFAULT_LANGUAGE: Language = "en";
+export const DEFAULT_LANGUAGE: Language = "my";
 
 /** The words of a guide page that are not chapter text, in the language of the page. */
 export type GuideStrings = {
@@ -122,6 +122,43 @@ export const LANGUAGE_INFO: Readonly<Record<Language, LanguageInfo>> = {
       printAllLead: "Všechny kapitoly na jedné stránce pro tisk nebo uložení do PDF. Stiskněte Ctrl+P a v nastavení tisku vypněte záhlaví a zápatí. Pro tisk části příručky zvolte rozsah stránek.",
       printContents: "Obsah",
       printButton: "Vytisknout",
+    },
+  },
+  my: {
+    name: "မြန်မာ",
+    htmlLang: "my",
+    numberLocale: "en-US",
+    quotes: ["“", "”"],
+    guideDir: "my-guide",
+    communityUrl: GITHUB_DISCUSSIONS,
+    readme: "README.md",
+    quickstartAnchor: "windows-quickstart",
+    legal: { imprint: "Imprint", privacy: "Privacy Policy" },
+    keyNames: { RightClick: "Right click" },
+    asciiUmlauts: false,
+    complete: false,
+    guide: {
+      site: "ကျောက်သင်ပုန်း အသုံးပြုနည်း",
+      home: "အသုံးပြုနည်း",
+      openEditor: "ပုံဆွဲရန်",
+      backToEditor: "သင်ပုန်းသို့ ပြန်သွားရန်",
+      editorElsewhere: "The editor is already open in another tab - just switch to it.",
+      chapters: "Chapters",
+      onThisPage: "On this page",
+      previous: "Previous chapter",
+      next: "Next chapter",
+      overviewLead: "Everything layerling can do, step by step. The pictures are taken from the running program and are renewed with every version.",
+      sourceNote: "This guide grows with the program. If something is missing or wrong, tell us in the",
+      forum: "discussions",
+      notTranslated: "ဤအခန်းကို မြန်မာလို မပြန်ရသေးပါ။ အင်္ဂလိပ်စာသားကို ပြထားသည်။",
+      languageMenu: "ဘာသာစကား",
+      search: "Search the guide",
+      searchNothing: "Nothing found.",
+      printAll: "Whole guide, to print",
+      printAllTitle: "The whole guide on one page",
+      printAllLead: "Every chapter one after the other, to print or to save as a PDF: press Ctrl+P and switch off \"Headers and footers\" in the print settings. To print only a part, choose its page numbers there.",
+      printContents: "Contents",
+      printButton: "Print",
     },
   },
   en: {

@@ -1,5 +1,6 @@
 "use client";
 
+import { createPortal } from "react-dom";
 import { Pin, PinOff } from "lucide-react";
 import { useCallback, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
 import { GuideHelpLink } from "@/components/GuideHelpLink";
@@ -260,7 +261,7 @@ export function ShapeMenuPanel({
     style["--shape-menu-height"] = `${size.height}px`;
   }
 
-  return (
+  const panel = (
     <div
       ref={movable.panelRef}
       className={panelClass}
@@ -307,4 +308,7 @@ export function ShapeMenuPanel({
         : null}
     </div>
   );
+  // Keep the floating library outside the phone toolbar’s horizontal scroll area.
+  const host = typeof document !== "undefined" ? document.querySelector(".layerling-editor") : null;
+  return host ? createPortal(panel, host) : panel;
 }

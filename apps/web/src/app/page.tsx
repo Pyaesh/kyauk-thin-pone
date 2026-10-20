@@ -1,5 +1,8 @@
 "use client";
 
+import { CAD_ENTRY_PATH, cadEditorUrl } from "@/lib/cadEntry";
+import { suggestDesignName } from "@/lib/kyaukThinPone";
+
 import { Archive, ArchiveRestore, ArrowLeft, Clock3, Copy, EllipsisVertical, Folder, FolderInput, FolderKanban, FolderPlus, FolderUp, Grid3X3, List, Pencil, Plus, RefreshCw, Search, Server, ShieldAlert, SlidersHorizontal, Sparkles, Trash2, X } from "lucide-react";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type DragEvent } from "react";
 import { AppFooter } from "@/components/AppFooter";
@@ -1115,7 +1118,7 @@ export default function Home() {
     setActiveProjectId(null);
     setView("dashboard");
     if (typeof window !== "undefined") {
-      window.history.replaceState(null, "", "/");
+      window.history.replaceState(null, "", CAD_ENTRY_PATH);
     }
   }, [activeProjectId, projects]);
 
@@ -1252,7 +1255,7 @@ export default function Home() {
         setProjects(storedProjects);
         setActiveProjectId(null);
         setView("dashboard");
-        window.history.replaceState(null, "", "/");
+        window.history.replaceState(null, "", CAD_ENTRY_PATH);
         return;
       }
       setProjects(storedProjects.map((project) => (project.id === projectId ? { ...project, updatedAt: Date.now() } : project)));
@@ -1264,7 +1267,7 @@ export default function Home() {
     setEditorStarted(true);
     setView("editor");
     if (typeof window !== "undefined") {
-      const nextUrl = projectId ? `/?editor=1&project=${encodeURIComponent(projectId)}` : "/?editor=1";
+      const nextUrl = cadEditorUrl(projectId);
       window.history.replaceState(null, "", nextUrl);
     }
   };
@@ -1450,7 +1453,7 @@ export default function Home() {
   }, []);
 
   const createAndOpenProject = (name?: string) => {
-    const project = newProject(name ?? t("dashboard.untitledDesign", { number: projects.length + 1 }), projects.length, 0, openFolderId);
+    const project = newProject(name ?? suggestDesignName(projects.length + 1), projects.length, 0, openFolderId);
     setProjectShapesById((current) => ({
       ...current,
       [project.id]: projectShapeCacheEntry(project.revision ?? project.updatedAt, []),
@@ -2142,7 +2145,7 @@ export default function Home() {
     setEditorLoading(false);
     setView("dashboard");
     if (typeof window !== "undefined") {
-      window.history.replaceState(null, "", "/");
+      window.history.replaceState(null, "", CAD_ENTRY_PATH);
     }
   };
 
@@ -2940,9 +2943,9 @@ function Dashboard({
     <main className="dashboard-shell">
       <header className="dashboard-topbar">
         <a className="dashboard-brand" href="./" aria-label={t("brand.home")}>
-          <img src="/assets/layerling/layerling-logo.svg" alt="" />
+          <img src="/assets/kyauk-thin-pone/logo.svg" alt="" />
           <span className="dashboard-brand-text">
-            <span className="dashboard-brand-name">layerling</span>
+            <span className="dashboard-brand-name">ကျောက်သင်ပုန်း</span>
             <span className="dashboard-tagline">{t("brand.tagline")}</span>
           </span>
         </a>

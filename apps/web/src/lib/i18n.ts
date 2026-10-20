@@ -79,6 +79,7 @@ export function createCatalogueStore(
 
 /** Fetching a further language: one line per language that is not built in, `() => import("@/lib/messages.xx").then((module) => module.MESSAGES_XX)`. */
 const LOADERS: Partial<Record<Language, CatalogueLoader>> = {
+  my: () => import("@/lib/messages.my").then((module) => module.MESSAGES_MY),
   cs: () => import("@/lib/messages.cs").then((module) => module.MESSAGES_CS),
   nl: () => import("@/lib/messages.nl").then((module) => module.MESSAGES_NL),
   da: () => import("@/lib/messages.da").then((module) => module.MESSAGES_DA),
@@ -171,10 +172,6 @@ export function detectLanguage(): Language {
     if (isLanguage(stored)) return stored;
   } catch {
     // Fall through to the browser's own preference.
-  }
-  for (const tag of window.navigator.languages ?? [window.navigator.language]) {
-    const language = languageFromTag(tag);
-    if (language) return language;
   }
   return DEFAULT_LANGUAGE;
 }

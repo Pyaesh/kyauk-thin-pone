@@ -1,24 +1,37 @@
 {
   "id": "/",
-  "name": "layerling - Easy 3D CAD for 3D printing",
-  "short_name": "layerling",
+  "name": "ကျောက်သင်ပုန်း · KyaukThinPone",
+  "short_name": "KyaukThinPone",
   "description": "Easy 3D CAD for 3D printing, right in your browser",
-  "lang": "en",
+  "lang": "my",
   "dir": "ltr",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "launch_handler": { "client_mode": ["navigate-existing", "auto"] },
+  "launch_handler": {
+    "client_mode": [
+      "navigate-existing",
+      "auto"
+    ]
+  },
   "file_handlers": [
     {
       "action": "./",
-      "accept": { "application/vnd.layerling.project+zip": [".lyl"] }
+      "accept": {
+        "application/vnd.layerling.project+zip": [
+          ".lyl"
+        ]
+      }
     }
   ],
   "orientation": "any",
-  "background_color": "#fafafa",
-  "theme_color": "#fafaf9",
-  "categories": ["graphics", "productivity", "utilities"],
+  "background_color": "#203937",
+  "theme_color": "#218877",
+  "categories": [
+    "graphics",
+    "productivity",
+    "utilities"
+  ],
   "icons": [
     {
       "src": "assets/layerling/layerling-icon-192.png",

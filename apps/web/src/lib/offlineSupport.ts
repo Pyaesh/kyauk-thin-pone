@@ -1,3 +1,4 @@
+import { CAD_ENTRY_PATH } from "@/lib/cadEntry";
 import { useEffect, useState } from "react";
 
 /**
@@ -9,7 +10,7 @@ import { useEffect, useState } from "react";
  */
 
 /** True in the static export, the only build that registers a service worker. Fixed when the page is built. */
-export const BUILD_HAS_SERVICE_WORKER = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true";
+export const BUILD_HAS_SERVICE_WORKER = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true" && CAD_ENTRY_PATH === "/";
 
 export function serviceWorkerCanRun(staticExport: boolean, secureContext: boolean, browserSupports: boolean): boolean {
   return staticExport && secureContext && browserSupports;

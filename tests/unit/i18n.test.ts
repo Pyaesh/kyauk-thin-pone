@@ -123,12 +123,12 @@ describe("language detection", () => {
     expect(isLanguage(null)).toBe(false);
   });
 
-  it("starts in English, so the first render matches the served HTML", () => {
-    expect(getLanguage()).toBe("en");
-    expect(detectLanguage()).toBe("en");
+  it("starts in Burmese, matching the fork’s served HTML", () => {
+    expect(getLanguage()).toBe("my");
+    expect(detectLanguage()).toBe("my");
   });
 
-  it("follows the browser when nothing was chosen", () => {
+  it("defaults to Burmese and honors an explicit stored language", () => {
     // The tests run without a DOM, so this stands in for one: a browser that
     // has never been given a preference, only a language list.
     const withBrowser = (languages: string[], stored: string | null = null) => {
@@ -145,15 +145,10 @@ describe("language detection", () => {
       }
     };
 
-    expect(withBrowser(["en-GB", "en"])).toBe("en");
-    expect(withBrowser(["en-US"])).toBe("en");
-    expect(withBrowser(["de-AT", "de"])).toBe("de");
-    expect(withBrowser(["de"])).toBe("de");
-    // A language we do not serve falls back to English rather than to nothing.
-    expect(withBrowser(["es-ES", "ko"])).toBe("en");
-    expect(withBrowser(["ja-JP", "ja"])).toBe("ja");
-    // The first tag we can serve wins, even behind one we cannot.
-    expect(withBrowser(["es-ES", "de-DE"])).toBe("de");
+    expect(withBrowser(["en-US"])).toBe("my");
+    expect(withBrowser(["de-DE"])).toBe("my");
+    expect(withBrowser(["my-MM"])).toBe("my");
+    expect(withBrowser(["es-ES"])).toBe("my");
     // A stored choice outranks the browser in both directions.
     expect(withBrowser(["de-DE"], "en")).toBe("en");
     expect(withBrowser(["en-US"], "de")).toBe("de");

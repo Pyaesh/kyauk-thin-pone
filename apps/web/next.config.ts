@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import type { NextConfig } from "next";
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -23,6 +24,9 @@ try {
 // can carry it and a browser cache cannot hand out last release's copy.
 const appVersion: string = JSON.parse(readFileSync(path.resolve(process.cwd(), "package.json"), "utf8")).version;
 
+let sourceRevision = process.env.NEXT_PUBLIC_SOURCE_REVISION || "main";
+try { sourceRevision = execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(); } catch { /* Source archives may not include Git metadata. */ }
+
 const nextConfig: NextConfig = {
   outputFileTracingRoot: path.resolve(process.cwd()),
   devIndicators: false,
@@ -32,6 +36,7 @@ const nextConfig: NextConfig = {
   distDir: isStaticExport ? ".next-export" : process.env.NODE_ENV === "development" ? ".next-dev" : ".next",
   allowedDevOrigins: ["localhost", "127.0.0.1", ...extraAllowedDevOrigins],
   env: {
+    NEXT_PUBLIC_SOURCE_REVISION: sourceRevision,
     NEXT_PUBLIC_STATIC_EXPORT: isStaticExport ? "true" : "false",
     NEXT_PUBLIC_OCCT_RUNTIME_VERSION: occtRuntimeVersion,
     NEXT_PUBLIC_JAPANESE_FONT_VERSION: japaneseFontVersion,

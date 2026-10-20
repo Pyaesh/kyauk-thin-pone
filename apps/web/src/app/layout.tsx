@@ -1,8 +1,10 @@
+import { CAD_ENTRY_PATH } from "@/lib/cadEntry";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./historyView.css";
 import "./myShapes.css";
 import "./viewCube.css";
+import "./kyaukThinPone.css";
 import { DiagnoseStrip } from "@/components/DiagnoseStrip";
 import { NewVersionNotice } from "@/components/NewVersionNotice";
 import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
@@ -11,8 +13,8 @@ import { LANGUAGES } from "@/lib/languages";
 import { TOOLBAR_SIZE_BOOT_SCRIPT } from "@/lib/toolbarSize";
 import { VIEW_CUBE_POSITION_BOOT_SCRIPT } from "@/lib/viewCubePosition";
 
-const NAME = "layerling";
-const TITLE = "layerling - Free 3D CAD for 3D printing in your browser";
+const NAME = "KyaukThinPone · ကျောက်သင်ပုန်း";
+const TITLE = "ကျောက်သင်ပုန်း · 3DPMM CAD";
 const DESCRIPTION = "Free 3D CAD in your browser, no account, easy for people coming from Tinkercad: fillets, chamfers, hollowing and threads. Export to STL, 3MF and STEP.";
 
 // Tells search engines what layerling is: a free web application, not an
@@ -21,15 +23,15 @@ const STRUCTURED_DATA = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   name: NAME,
-  url: "https://layerling.com/",
+
   description: DESCRIPTION,
   applicationCategory: "DesignApplication",
   operatingSystem: "Any (web browser)",
   inLanguage: [...LANGUAGES],
   isAccessibleForFree: true,
   offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
-  image: "https://layerling.com/assets/layerling/layerling-social.png",
-  sameAs: ["https://github.com/henmedia/layerling"],
+
+  sameAs: ["https://github.com/Pyaesh/kyauk-thin-pone"],
 };
 const SOCIAL_CARD = "/assets/layerling/layerling-social.png";
 
@@ -41,20 +43,20 @@ const INSTALL_PROMPT_SCRIPT = `window.addEventListener("beforeinstallprompt",fun
 export const metadata: Metadata = {
   // Damit die Bilder fuer Linkvorschauen als volle Adresse im Kopf stehen -
   // relative Angaben liest kein Forum und kein Messenger aus.
-  metadataBase: new URL("https://layerling.com"),
-  alternates: { canonical: "/" },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  alternates: { canonical: CAD_ENTRY_PATH },
   title: TITLE,
   description: DESCRIPTION,
   applicationName: NAME,
   // layerling speaks its languages itself. A browser's translator reads the page as English before the chosen
   // language is in, and makes "Hell" into "Hölle" or an English menu into German (forum).
   other: { google: "notranslate" },
-  manifest: "/manifest.webmanifest",
+  manifest: `${CAD_ENTRY_PATH}manifest.webmanifest`,
   icons: {
     // Das SVG ist das eigentliche Symbol; die .ico steht daneben fuer alles,
     // was stur /favicon.ico abholt, statt in den Kopf zu sehen.
     icon: [
-      { url: "/assets/layerling/layerling-logo.svg", type: "image/svg+xml" },
+      { url: "/assets/kyauk-thin-pone/logo.svg", type: "image/svg+xml" },
       { url: "/favicon.ico", sizes: "48x48" },
     ],
     // iOS nimmt hier ausschliesslich PNG. Stand da ein SVG, legte
@@ -94,7 +96,7 @@ export default function RootLayout({
 }>) {
   return (
     // Translate tools add classes such as translated-ltr to <html>; that must not end in a hydration error (#191).
-    <html lang="en" translate="no" style={{ colorScheme: "light" }} suppressHydrationWarning>
+    <html lang="my" translate="no" style={{ colorScheme: "light" }} suppressHydrationWarning>
       <head>
         {/* Before any of React's scripts: a page rearranged by Translate must not crash it (#186). */}
         <script dangerouslySetInnerHTML={{ __html: DOM_MUTATION_GUARD_SCRIPT }} />

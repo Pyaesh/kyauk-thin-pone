@@ -1,0 +1,29 @@
+/* 3DPMM identity; geometry tools and user-selected model colours remain upstream. */
+:root {
+  --background: #f8faf5; --foreground: #193e3b; --topbar: #f8faf5;
+  --subbar: #e7eedf; --panel: #f3f7ed; --tile: #edf3e8; --tile-hover: #dcecdf;
+  --border: #d7e3d2; --border-strong: #9fbaa6; --muted-strong: #637f70;
+  --primary: #218877; --active-tab: #218877; --nav-text: #193e3b;
+  --workplane: #9fc8b5; --workplane-soft: #dceee04d;
+  --toolbar-bg: #edf3e8; --toolbar-edge: #c6d6bd; --toolbar-label: #426458;
+  --toolbar-icon: #214c3b; --toolbar-icon-disabled: #b9cdbd;
+  --filament-cobalt: #218877; --hover-accent-color: #218877;
+  --font-ui: "Noto Sans Myanmar", "Myanmar Text", "Padauk", system-ui, sans-serif;
+}
+html[data-theme="dark"] { --primary: #87cfad; --active-tab: #65bd9d; }
+html[lang="my"] { line-height: 1.8; }
+html[lang="my"] .dashboard-brand-name, html[lang="my"] .toolbar-brand-name { font-size: 19px; line-height: 1.9; letter-spacing: 0; white-space: nowrap; }
+.dashboard-brand-name, .toolbar-brand-name { color: #218877; }
+.dashboard-brand-text { min-width: 0; }
+@media (max-width: 600px) { html[lang="my"] .toolbar-brand-name { font-size: 14px; } html[lang="my"] .dashboard-brand-name { font-size: 16px; } }
+
+:root { --group-home: #218877; --group-clipboard: #508c85; --group-history: #3b9c77; --group-shapes: #48856b; --group-visibility: #637f70; --group-combine: #2c786f; --group-modify: #468a75; --group-arrange: #397d6b; --group-manage: #508b81; --group-help: #637f70; --group-sketch: #3a8579; }
+
+.layerling-editor > .shape-menu-dropdown { top: var(--editor-toolbar-height); left: 12px; }
+@media (max-width: 600px) {
+  html .toolbar-mode-content, html[data-toolbar-size="large"] .toolbar-mode-content { flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; height: var(--editor-toolbar-tools-height); min-height: var(--editor-toolbar-tools-height); scrollbar-width: thin; }
+  .toolbar-mode-content .toolbar-section { flex-shrink: 0; }
+  .toolbar-mode-content .tool-group { display: contents; }
+  .sketch-toolbar-ribbon { flex-wrap: nowrap; }
+  html[lang="my"] .toolbar-brand-name { line-height: 1.5; }
+}

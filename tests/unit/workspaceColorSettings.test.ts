@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 import { DEFAULT_WORKPLANE_WORKSPACE, normalizeWorkspaceSettings } from "@/lib/workplaneSettings";
 
 describe("background, workplane and edge line settings", () => {
-  it("start as the look layerling always had: cream, no extra edge lines, black when switched on", () => {
-    expect(DEFAULT_WORKPLANE_WORKSPACE.background).toBe("#fbf8f0");
-    expect(DEFAULT_WORKPLANE_WORKSPACE.surfaceColor).toBe("#fdf4dd");
+  it("start with the KyaukThinPone slate palette, no extra edge lines, black when switched on", () => {
+    expect(DEFAULT_WORKPLANE_WORKSPACE.background).toBe("#203937");
+    expect(DEFAULT_WORKPLANE_WORKSPACE.surfaceColor).toBe("#dcead9");
     expect(DEFAULT_WORKPLANE_WORKSPACE.edgeLines).toBe(false);
     expect(DEFAULT_WORKPLANE_WORKSPACE.edgeColor).toBe("#000000");
   });
@@ -16,10 +16,10 @@ describe("background, workplane and edge line settings", () => {
 
   it("takes settings saved before they existed as the defaults, and refuses a colour that is none", () => {
     const old = normalizeWorkspaceSettings({ gridColor: "#c08a12" });
-    expect(old.surfaceColor).toBe("#fdf4dd");
+    expect(old.surfaceColor).toBe("#dcead9");
     expect(old.edgeLines).toBe(false);
     const broken = normalizeWorkspaceSettings({ surfaceColor: "red", edgeColor: "#12", edgeLines: "yes" });
-    expect(broken.surfaceColor).toBe("#fdf4dd");
+    expect(broken.surfaceColor).toBe("#dcead9");
     expect(broken.edgeColor).toBe("#000000");
     expect(broken.edgeLines).toBe(false);
   });
