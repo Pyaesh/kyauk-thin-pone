@@ -1,5 +1,6 @@
 "use client";
 
+import { CAD_ENTRY_PATH, cadEditorUrl } from "@/lib/cadEntry";
 import { suggestDesignName } from "@/lib/kyaukThinPone";
 
 import { Archive, ArchiveRestore, ArrowLeft, Clock3, Copy, EllipsisVertical, Folder, FolderInput, FolderKanban, FolderPlus, FolderUp, Grid3X3, List, Pencil, Plus, RefreshCw, Search, Server, ShieldAlert, SlidersHorizontal, Sparkles, Trash2, X } from "lucide-react";
@@ -1117,7 +1118,7 @@ export default function Home() {
     setActiveProjectId(null);
     setView("dashboard");
     if (typeof window !== "undefined") {
-      window.history.replaceState(null, "", "/");
+      window.history.replaceState(null, "", CAD_ENTRY_PATH);
     }
   }, [activeProjectId, projects]);
 
@@ -1254,7 +1255,7 @@ export default function Home() {
         setProjects(storedProjects);
         setActiveProjectId(null);
         setView("dashboard");
-        window.history.replaceState(null, "", "/");
+        window.history.replaceState(null, "", CAD_ENTRY_PATH);
         return;
       }
       setProjects(storedProjects.map((project) => (project.id === projectId ? { ...project, updatedAt: Date.now() } : project)));
@@ -1266,7 +1267,7 @@ export default function Home() {
     setEditorStarted(true);
     setView("editor");
     if (typeof window !== "undefined") {
-      const nextUrl = projectId ? `/?editor=1&project=${encodeURIComponent(projectId)}` : "/?editor=1";
+      const nextUrl = cadEditorUrl(projectId);
       window.history.replaceState(null, "", nextUrl);
     }
   };
@@ -2144,7 +2145,7 @@ export default function Home() {
     setEditorLoading(false);
     setView("dashboard");
     if (typeof window !== "undefined") {
-      window.history.replaceState(null, "", "/");
+      window.history.replaceState(null, "", CAD_ENTRY_PATH);
     }
   };
 

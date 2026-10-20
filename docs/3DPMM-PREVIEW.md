@@ -31,3 +31,7 @@ The generated static files include all CAD workers and WebAssembly runtimes. Ser
 Set `NEXT_PUBLIC_SITE_URL` to the chosen CAD origin before a production build. No new production domain or DNS changes are made here. The main site's existing homepage layout can remain unchanged, with its CAD buttons pointing to the dedicated editor once approved.
 
 The preview workflow uploads static build files as a GitHub Actions artifact. It does not publish to GitHub Pages or the VPS. Retain the AGPL license, copyright notices and prominent source link in any deployed version. Review third-party notices before distribution.
+
+## Shared-origin production deployment
+
+Build with `NEXT_PUBLIC_CAD_ENTRY_PATH=/cad/` to publish the entry at `/cad/` alongside the private 3DPMM homepage. Navigation then stays under `/cad/`. Its compiled assets (`/_next/`, `/occt/`, guide pages, and named asset subfolders) remain root-relative and are composed into the isolated site release without overwriting existing files. A scoped manifest is placed beside the CAD entry. Offline caching and its install hints are disabled for this shared-origin build, protecting the homepage from the upstream root-scoped service worker.

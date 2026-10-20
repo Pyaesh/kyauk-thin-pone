@@ -1,3 +1,4 @@
+import { CAD_ENTRY_PATH } from "@/lib/cadEntry";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./historyView.css";
@@ -43,14 +44,14 @@ export const metadata: Metadata = {
   // Damit die Bilder fuer Linkvorschauen als volle Adresse im Kopf stehen -
   // relative Angaben liest kein Forum und kein Messenger aus.
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
-  alternates: { canonical: "/" },
+  alternates: { canonical: CAD_ENTRY_PATH },
   title: TITLE,
   description: DESCRIPTION,
   applicationName: NAME,
   // layerling speaks its languages itself. A browser's translator reads the page as English before the chosen
   // language is in, and makes "Hell" into "Hölle" or an English menu into German (forum).
   other: { google: "notranslate" },
-  manifest: "/manifest.webmanifest",
+  manifest: `${CAD_ENTRY_PATH}manifest.webmanifest`,
   icons: {
     // Das SVG ist das eigentliche Symbol; die .ico steht daneben fuer alles,
     // was stur /favicon.ico abholt, statt in den Kopf zu sehen.
