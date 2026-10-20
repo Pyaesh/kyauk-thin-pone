@@ -5,7 +5,7 @@ import { suggestDesignName } from "@/lib/kyaukThinPone";
 
 import { Archive, ArchiveRestore, ArrowLeft, Clock3, Copy, EllipsisVertical, Folder, FolderInput, FolderKanban, FolderPlus, FolderUp, Grid3X3, List, Pencil, Plus, RefreshCw, Search, Server, ShieldAlert, SlidersHorizontal, Sparkles, Trash2, X } from "lucide-react";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type DragEvent } from "react";
-import { AppFooter } from "@/components/AppFooter";
+import { SOURCE_CODE_VERSION_URL } from "@/lib/appUpdate";
 import { LanguageSwitch } from "@/components/LanguageSwitch";
 import { ThemeSwitch } from "@/components/ThemeSwitch";
 import { useAppUpdate } from "@/lib/useAppUpdate";
@@ -2945,8 +2945,7 @@ function Dashboard({
         <a className="dashboard-brand" href="./" aria-label={t("brand.home")}>
           <img src="/assets/kyauk-thin-pone/logo.svg" alt="" />
           <span className="dashboard-brand-text">
-            <span className="dashboard-brand-name">ကျောက်သင်ပုန်း</span>
-            <span className="dashboard-tagline">{t("brand.tagline")}</span>
+            <span className="dashboard-brand-name">ကျောက်သင်ပုံး</span>
           </span>
         </a>
         <div className="dashboard-search">
@@ -2956,6 +2955,7 @@ function Dashboard({
         <div className="dashboard-topbar-actions">
           <ThemeSwitch />
           <LanguageSwitch />
+          <details className="dashboard-source-menu"><summary aria-label="Source and license" title="Source and license">ⓘ</summary><a href={SOURCE_CODE_VERSION_URL} target="_blank" rel="noreferrer">Source code · AGPL-3.0</a><a href="https://github.com/henmedia/layerling" target="_blank" rel="noreferrer">Based on Layerling</a></details>
         </div>
       </header>
 
@@ -3320,8 +3320,7 @@ function Dashboard({
                   <ShieldAlert size={24} strokeWidth={2.4} />
                 </span>
                 <div className="storage-notice-text">
-                  <strong>{t("storageNotice.title")} <GuideHelpLink chapter="files" section="backingUp" className="storage-notice-help" iconSize={16} /></strong>
-                  <span>{t("storageNotice.body")}</span>
+                  <span>{t("storageNotice.title")}</span>
                 </div>
                 <div className="storage-notice-actions">
                   {projects.length > 0 ? (
@@ -3702,7 +3701,6 @@ function Dashboard({
               </details>
             </>
           )}
-          <AppFooter version={LYL_CREATED_WITH_VERSION} updateInfo={update} />
         </section>
       </div>
 

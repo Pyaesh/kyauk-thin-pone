@@ -148,3 +148,15 @@ html[data-theme="dark"] .layerling-editor .toolbar-mode-content { background: #1
   .layerling-editor .toolbar-section-tools { padding: 2px; }
   .layerling-editor > .shape-menu-dropdown { right: 8px; max-width: calc(100vw - 16px); }
 }
+
+.dashboard-source-menu { position: relative; font-size: 14px; }
+.dashboard-source-menu summary { cursor: pointer; list-style: none; padding: 10px; }
+.dashboard-source-menu[open] { z-index: 30; }
+.dashboard-source-menu a { position: absolute; right: 0; top: 42px; width: 230px; padding: 12px; background: var(--panel); color: var(--foreground); border: 1px solid var(--border); }
+.dashboard-source-menu a + a { top: 88px; }
+.dashboard-shell .storage-notice { padding: 12px 16px; gap: 12px; }
+.dashboard-shell .storage-notice-icon { display: none; }
+.dashboard-shell .storage-notice-text { display: block; }
+.dashboard-shell .storage-notice-text span { font-weight: 500; }
+.dashboard-shell .storage-notice-actions { flex-shrink: 0; }
+@media (min-width: 1600px) { .dashboard-shell .storage-notice { flex-wrap: nowrap; } .dashboard-shell .storage-notice-text { white-space: nowrap; } }
