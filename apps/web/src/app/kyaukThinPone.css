@@ -329,3 +329,6 @@ html[data-toolbar-size="large"] .layerling-editor .toolbar-mode-content.geometry
   .cad-inspector-host .inspector-snap-dock { padding: 8px 4px; }
   .cad-inspector-host .snap-row { flex-wrap: wrap; justify-content: center; gap: 4px; font-size: 10px; }
 }
+@media (max-width: 800px) {
+  .cad-inspector-host .inspector-header-actions { flex-basis: 100%; justify-content: flex-end; }
+}
