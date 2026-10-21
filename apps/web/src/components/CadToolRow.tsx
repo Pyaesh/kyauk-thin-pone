@@ -5,7 +5,7 @@ import { CadFeatureGroup } from "./CadFeatureGroup";
 export function CadToolRow({ group, title, icon, children }: { group: string; title: string; icon: ReactNode; children: ReactNode }) {
   const [compact, setCompact] = useState(true);
   useEffect(() => {
-    const media = window.matchMedia("(max-width: 1100px)");
+    const media = window.matchMedia("(max-width: 1279px)");
     const sync = () => setCompact(media.matches);
     sync(); media.addEventListener("change", sync);
     return () => media.removeEventListener("change", sync);

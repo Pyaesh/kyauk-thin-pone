@@ -10510,6 +10510,17 @@ function createWorkplaneLabel(
       size = Math.floor((size * textWidth) / measured);
       context.font = `${weight} ${size}px ${WORKPLANE_LABEL_FONT_STACK}`;
     }
+    // Burmese marks can extend much farther below the alphabetic baseline.
+    // Fit the actual glyph bounds (including the outline) inside the texture.
+    const padding = canvas.height * 0.04 + (outline ? size * 0.11 : 0);
+    let metrics = context.measureText(text);
+    const glyphHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+    if (glyphHeight > canvas.height - padding * 2) {
+      size = Math.floor(size * (canvas.height - padding * 2) / glyphHeight);
+      context.font = `${weight} ${size}px ${WORKPLANE_LABEL_FONT_STACK}`;
+      metrics = context.measureText(text);
+    }
+    y = Math.max(padding + metrics.actualBoundingBoxAscent, Math.min(y, canvas.height - padding - metrics.actualBoundingBoxDescent));
     if (outline) {
       context.strokeStyle = outline;
       context.lineWidth = size * 0.22;

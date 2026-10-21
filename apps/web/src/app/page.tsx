@@ -2945,7 +2945,7 @@ function Dashboard({
         <a className="dashboard-brand" href="/" aria-label="3DPMM home">
           <img src="/assets/kyauk-thin-pone/logo.svg" alt="" />
           <span className="dashboard-brand-text">
-            <span className="dashboard-brand-name">3D<span className="brand-pmm">PMM</span></span><small className="dashboard-brand-caption">3D PRINTING MYANMAR</small>
+            <span className="dashboard-brand-name">3DP<span className="brand-pmm">MM</span></span><small className="dashboard-brand-caption">3D PRINTING MYANMAR</small>
           </span>
         </a>
         <h1 className="dashboard-cad-title">ပုံဆွဲအခန်း</h1>

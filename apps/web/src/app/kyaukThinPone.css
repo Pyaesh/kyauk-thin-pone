@@ -381,3 +381,19 @@ html .view-cube .cube-face:hover, html .view-cube .cube-face:focus-visible { bac
 .layerling-editor .toolbar-mode-content .tool-group.cad-feature-rail { height:calc(100dvh - var(--editor-toolbar-title-height)); }
 html[data-theme="dark"] .layerling-editor .toolbar-mode-content .tool-group.cad-feature-rail { background:#193a31; }
 .visibility-dropdown { max-height:calc(100dvh - var(--editor-toolbar-title-height) - 24px);overflow-y:auto;overscroll-behavior:contain; }
+/* Keep Modify between Arrange and History, with its less common commands tucked away. */
+.layerling-editor .cad-modify-tools > .toolbar-section-tools { align-items:center; }
+.layerling-editor .cad-modify-tools .cad-feature-group { width:30px; }
+.cad-modify-tools .cad-feature-group > summary { width:28px;height:36px;border:0;background:transparent; }
+.cad-modify-tools .cad-feature-group > summary > svg:last-child { display:none; }
+.cad-top-tools .cad-modify-tools .cad-feature-popover { left:auto;right:0; }
+/* Center the cube in the free area above the left control rail. */
+.layerling-editor .view-cube { left:8px;top:28px; }
+@media (min-width:801px) { .cad-top-tools { left:120px; } }
+@media(max-width:800px) {
+  .layerling-editor .view-cube { left:7px;top:126px; }
+  .cad-top-tools > .cad-feature-group:last-child .cad-feature-popover { left:-82px; }
+}
+.layerling-editor .cad-modify-tools .cad-feature-popover .toolbar-section-tools { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px; }
+.layerling-editor .view-cube { left:14px;top:24px; }
+@media(max-width:800px) { .layerling-editor .view-cube { left:12px;top:126px; } }
