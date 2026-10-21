@@ -1,6 +1,7 @@
 "use client";
 
-import { EditorUtilityControls, TapeMeasureIcon, WorkplanePlacementIcon, DropToPlaneIcon } from "@/components/EditorUtilityControls";
+import { createPortal } from "react-dom";
+import { EditorUtilityControls, WorkplaneSidebarTools, HomeViewIcon, FitViewIcon, ProjectionViewIcon, TapeMeasureIcon, WorkplanePlacementIcon, DropToPlaneIcon } from "@/components/EditorUtilityControls";
 import { markEscapeHandled } from "@/lib/escapeHandled";
 import { ArrowDownToLine, Check, ChevronLeft, ChevronRight, Crosshair, Cuboid, Download, Eye, EyeOff, FlipHorizontal, GripVertical, Home, Layers, Minus, MousePointer2, PanelsTopLeft, Plus, Rotate3d, RotateCcw, Ruler, RulerDimensionLine, Slice, Spline, Trash2, X } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type Dispatch, type DragEvent, type MouseEvent as ReactMouseEvent, type MutableRefObject, type PointerEvent as ReactPointerEvent, type ReactNode, type SetStateAction, type WheelEvent as ReactWheelEvent } from "react";
@@ -3234,7 +3235,7 @@ function resizeSelectionToSizes(
  */
 const TAPE_PANEL: MovablePanelOptions = {
   floatingStyle: { animation: "none" },
-  area: (panel) => panel.closest<HTMLElement>(".workplane-stage"),
+  area: () => document.querySelector<HTMLElement>(".workplane-stage"),
 };
 
 function MovableTapePanel({ children }: { children: ReactNode }) {
@@ -3269,7 +3270,7 @@ const SECTION_PANEL: MovablePanelOptions = {
 
 function MovableSectionPanel({ children }: { children: (handleProps: ReturnType<typeof useMovablePanel>["handleProps"]) => ReactNode }) {
   const movable = useMovablePanel<HTMLDivElement>("layerling.editor.sectionPanelPosition", SECTION_PANEL);
-  return (
+  return createPortal(
     <div
       id="section-tool-popover"
       ref={movable.panelRef}
@@ -3278,7 +3279,7 @@ function MovableSectionPanel({ children }: { children: (handleProps: ReturnType<
       aria-label={t("camera.sectionView")}
     >
       {children(movable.handleProps)}
-    </div>
+    </div>, document.body
   );
 }
 
@@ -4522,7 +4523,7 @@ export function WorkplaneViewport({
     window.layerlingPanView = (rightFraction, upFraction) => { panViewBy(state, rightFraction, upFraction); state.needsRender = true; };
     window.layerlingCaptureView = (face = "current") => {
       if (face === "home") {
-        resetCamera(state);
+        resetCamera(state, workspaceRef.current);
       } else if (face !== "current") {
         const direction = viewDirectionFromName(face);
         if (!direction) throw new Error(`Unknown view "${face}": use a face, or two or three neighbouring faces joined with "-", like "front-right-top"`);
@@ -4615,7 +4616,7 @@ export function WorkplaneViewport({
       }
     };
     perfRef.current.lastSample = performance.now();
-    resetCamera(state);
+    resetCamera(state, workspaceRef.current);
     rebuildShapes(state, shapesRef.current, shapeOutlineIds(), false, placementWorkplaneRef.current);
     syncSplitPlane(state, splitPlaneRef.current, false, selectedIdsRef.current);
 
@@ -8244,13 +8245,13 @@ export function WorkplaneViewport({
   );
 
   /** Zooms to the selection; false when there is none to look at. */
-  const focusSelection = useCallback((): boolean => {
+  const focusSelection = useCallback((all = false): boolean => {
     const state = threeRef.current;
     if (!state) return false;
     // The real selection, not renderSelectionIds: the workplane and edge tools hide
     // the outline while they are open, but the objects are still what to look at.
     const bounds = new THREE.Box3();
-    selectedIdsRef.current.forEach((id) => {
+    (all ? [...state.shapeRecords.keys()] : selectedIdsRef.current).forEach((id) => {
       const record = state.shapeRecords.get(id);
       if (record) bounds.expandByObject(record.object);
     });
@@ -8292,7 +8293,7 @@ export function WorkplaneViewport({
   const resetView = useCallback(() => {
     const state = threeRef.current;
     if (state) {
-      resetCamera(state);
+      resetCamera(state, workspaceRef.current);
       state.needsRender = true;
     }
   }, []);
@@ -8885,6 +8886,7 @@ export function WorkplaneViewport({
         </div>
       </div>
 
+      <div className="camera-rail"><EditorUtilityControls />
       <div className={`camera-controls ${cameraControlsCollapsed ? "collapsed" : ""}`} aria-label={t("camera.controls")} data-help-section="cameraBar">
         {cameraControlsCollapsed ? (
           <button className="camera-controls-toggle" aria-label={t("camera.show")} title={t("camera.showShort")} aria-expanded={false} onClick={() => setCameraControlsCollapsed(false)}>
@@ -8892,25 +8894,17 @@ export function WorkplaneViewport({
           </button>
         ) : (
           <>
-            <EditorUtilityControls />
             <button className="camera-home-control" aria-label={t("camera.home")} aria-keyshortcuts="Home" title={t("camera.shortcut", { label: t("camera.home"), keys: "Home" })} onClick={resetView}>
-              <Home size={24} strokeWidth={2.25} />
+              <HomeViewIcon />
             </button>
             <button
               className="camera-fit-control"
               aria-label={t("camera.focusSelection")}
               aria-keyshortcuts="F Shift+F"
               title={t("camera.shortcut", { label: t("camera.focusSelection"), keys: "F" })}
-              disabled={selectedIds.length === 0}
-              onClick={() => focusSelection()}
+              onClick={() => { if (!focusSelection(true)) resetView(); }}
             >
-              <Crosshair size={24} strokeWidth={2.25} />
-            </button>
-            <button className="camera-zoom-button" aria-label={t("camera.zoomIn")} aria-keyshortcuts="+" title={t("camera.shortcut", { label: t("camera.zoomIn"), keys: "+" })} onClick={() => zoomCamera(0.7)}>
-              <Plus size={28} strokeWidth={2.15} />
-            </button>
-            <button className="camera-zoom-button" aria-label={t("camera.zoomOut")} aria-keyshortcuts="-" title={t("camera.shortcut", { label: t("camera.zoomOut"), keys: "−" })} onClick={() => zoomCamera(1.35)}>
-              <Minus size={28} strokeWidth={2.15} />
+              <FitViewIcon />
             </button>
             {/* Zwei Finger zoomen und schieben von selbst. Zum Drehen fehlt die
                 Geste, also gibt es sie hier als Umschalter - und er steht nur
@@ -8937,7 +8931,7 @@ export function WorkplaneViewport({
                 <GridEyeIcon size={25} strokeWidth={2.1} crossed={workplaneLayerHidden} aria-hidden="true" />
               </button>
             </div>
-            <div className="workplane-control-group">
+            <WorkplaneSidebarTools>            <div className="workplane-control-group">
               <button
                 className={workplaneMode ? "active" : ""}
                 aria-label={t("camera.placeWorkplane")}
@@ -8974,6 +8968,7 @@ export function WorkplaneViewport({
                 </button>
               ) : null}
             </div>
+</WorkplaneSidebarTools>
             <div className="tape-control-group">
               <button
                 className={`tape-trigger ${tapeToolsOpen ? "active" : ""}`}
@@ -9303,13 +9298,14 @@ export function WorkplaneViewport({
               })}
               onClick={toggleProjection}
             >
-              <Cuboid size={24} strokeWidth={2.15} aria-hidden="true" />
+              <ProjectionViewIcon />
             </button>
-            <button className="camera-drop-control" aria-label={t("editor.tool.dropToWorkplane")} title={t("editor.tool.dropToWorkplane")} disabled={!onDropToWorkplane || selectedIds.length === 0 || shapes.some(shape => selectedIds.includes(shape.id) && shape.locked)} onClick={onDropToWorkplane}><DropToPlaneIcon size={25} /></button>
+            <WorkplaneSidebarTools>            <button className="camera-drop-control" aria-label={t("editor.tool.dropToWorkplane")} title={t("editor.tool.dropToWorkplane")} disabled={!onDropToWorkplane || selectedIds.length === 0 || shapes.some(shape => selectedIds.includes(shape.id) && shape.locked)} onClick={onDropToWorkplane}><DropToPlaneIcon size={25} /></button></WorkplaneSidebarTools>
           </>
         )}
       </div>
 
+      </div>
       <section className={`workplane-wrap ${noteMode ? "note-mode" : ""} ${workplaneMode ? "placing-workplane" : ""} ${splitActive ? "split-mode" : ""} ${splitHandleState ? `split-handle-${splitHandleState}` : ""} ${splitSurfacePick ? "split-picking" : ""} ${splitSurfacePick && splitPickOverFace ? "split-pick-over-face" : ""} ${cruiseAsset || carryIds?.length ? "cruising" : ""} ${tapeMode ? "tape-mode" : ""} ${tapeDeleteMode ? "tape-delete-mode" : ""} ${tapeMoveMode ? "tape-move-mode" : ""} ${cornerRulerMode ? "corner-ruler-mode" : ""} ${pivotPickMode || layFlatPickMode || mateFacePick || cadFacePick ? "pivot-pick-mode" : ""} ${modifierActive ? "modifier-edge-pick" : ""} ${sectionMeasureMode && sectionSettings.enabled ? "section-measure-mode" : ""}`} aria-label={t("aria.workplane")}>
         <div className="workplane-plane">
           <div
@@ -9937,22 +9933,27 @@ function createThreeScene(host: HTMLDivElement): ThreeState {
   return state;
 }
 
-function resetCamera(state: ThreeState) {
+function resetCamera(state: ThreeState, workspace: WorkplaneWorkspaceSettings) {
   state.focusReach = null;
+  const target = new THREE.Vector3(0, 0, 0);
+  const direction = new THREE.Vector3(0, 0.9, 1.4).normalize();
+  const radius = Math.hypot(workspace.width, workspace.depth) / 2;
+  const canvas = state.renderer.domElement;
+  const aspect = canvas.clientWidth / Math.max(1, canvas.clientHeight);
+  const halfVertical = Math.tan(THREE.MathUtils.degToRad(CAMERA_FOV / 2));
+  const nearDepth = workspace.depth / 2 * direction.z;
+  const distance = Math.max(workspace.width / 2 / (halfVertical * aspect) + nearDepth, workspace.depth / 2 * direction.y / halfVertical + nearDepth) * 1.12;
   state.camera.up.set(0, 1, 0);
-  state.camera.position.copy(CAMERA_HOME);
-  state.controls.target.copy(CAMERA_TARGET);
+  state.camera.zoom = 1;
+  state.camera.position.copy(target).addScaledVector(direction, distance);
+  state.controls.target.copy(target);
   if (state.camera instanceof THREE.OrthographicCamera) {
-    state.camera.zoom = 1;
-    const distance = CAMERA_HOME.distanceTo(CAMERA_TARGET);
-    const halfHeight = distance * Math.tan(THREE.MathUtils.degToRad(CAMERA_FOV / 2));
-    const canvas = state.renderer.domElement;
-    updateOrthographicFrustum(state.camera, canvas.clientWidth / Math.max(1, canvas.clientHeight), halfHeight);
-  } else {
-    state.camera.zoom = 1;
+    const halfHeight = radius * 1.15 / Math.min(1, aspect);
+    updateOrthographicFrustum(state.camera, aspect, halfHeight);
   }
-  state.camera.lookAt(CAMERA_TARGET);
+  state.camera.lookAt(target);
   state.camera.updateProjectionMatrix();
+  fitCameraDepthRange(state.camera, target);
   state.controls.update();
 }
 

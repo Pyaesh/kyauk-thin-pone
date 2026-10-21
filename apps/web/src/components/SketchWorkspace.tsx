@@ -1,6 +1,6 @@
 "use client";
 
-import { EditorUtilityControls } from "@/components/EditorUtilityControls";
+import { EditorUtilityControls, HomeViewIcon, FitViewIcon } from "@/components/EditorUtilityControls";
 import { AlignCenterHorizontal, AlignCenterVertical, Check, ChevronUp, CornerDownRight, Crop, Crosshair, FlipHorizontal2, FlipVertical2, Home, Layers, Link, Link2Off, LockKeyhole, LockKeyholeOpen, Minus, Plus, Ruler, RulerDimensionLine, Slash, Spline, Split, Trash2, Waves, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type Dispatch, type SetStateAction, type FocusEvent as ReactFocusEvent, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent, type WheelEvent as ReactWheelEvent } from "react";
 import { SnapGridControl } from "@/components/workplane/ShapeInspector";
@@ -1789,9 +1789,9 @@ export function SketchWorkspace({
     <main className="sketch-workspace-stage" style={sketchColorStyle}>
       <div className="sketch-mode-badge">{operation === "revolve" ? t("sketch.modeBadgeRevolve") : operation === "sweep" ? t("sketch.modeBadgeSweep") : t("sketch.modeBadge")}</div>
       {operation === "revolve" ? <SketchRevolvePreview positions={revolvePreviewPositions} /> : null}
+      <div className="camera-rail"><EditorUtilityControls />
       <div className="camera-controls sketch-camera-controls" aria-label={t("sketch.viewControls")} data-help-section="cameraBar">
-        <EditorUtilityControls />
-        <button aria-label={t("sketch.resetView")} aria-keyshortcuts="Home" title={t("camera.shortcut", { label: t("sketch.resetView"), keys: "Home" })} onClick={resetView}><Home size={28} /></button>
+        <button aria-label={t("sketch.resetView")} aria-keyshortcuts="Home" title={t("camera.shortcut", { label: t("sketch.resetView"), keys: "Home" })} onClick={resetView}><HomeViewIcon /></button>
         <button
           aria-label={t("camera.focusSelection")}
           aria-keyshortcuts="F Shift+F"
@@ -1799,10 +1799,8 @@ export function SketchWorkspace({
           disabled={!focusBounds}
           onClick={() => focusSelection()}
         >
-          <Crosshair size={28} />
+          <FitViewIcon />
         </button>
-        <button aria-label={t("sketch.zoomIn")} aria-keyshortcuts="+" title={t("camera.shortcut", { label: t("sketch.zoomIn"), keys: "+" })} onClick={() => zoomByButton(0.8)}><Plus size={33} /></button>
-        <button aria-label={t("sketch.zoomOut")} aria-keyshortcuts="-" title={t("camera.shortcut", { label: t("sketch.zoomOut"), keys: "−" })} onClick={() => zoomByButton(1.25)}><Minus size={33} /></button>
         <button
           className={tool === "measure" ? "active" : ""}
           aria-label={t("camera.tapeTools")}
@@ -1832,6 +1830,7 @@ export function SketchWorkspace({
             <Layers size={26} strokeWidth={2.2} aria-hidden="true" />
           </button>
         ) : null}
+      </div>
       </div>
       <section ref={wrapRef} className="sketch-plate-wrap" aria-label="2D sketch plate">
         <svg

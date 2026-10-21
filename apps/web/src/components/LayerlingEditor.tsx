@@ -1,5 +1,6 @@
 "use client";
 
+import { CAD_ENTRY_PATH } from "@/lib/cadEntry";
 import { SketchEditorSettings } from "@/components/SketchEditorSettings";
 import { EditorMoreMenu } from "@/components/EditorMoreMenu";
 import { GuideHelpLink } from "@/components/GuideHelpLink";
@@ -13548,6 +13549,7 @@ function SecondaryToolbar({
     <div className="secondary-toolbar">
       {paletteOpen ? <CommandPalette commands={buildPaletteCommands()} onClose={() => setPaletteOpen(false)} /> : null}
       <div ref={toolbarContentRef} className={`toolbar-mode-content ${toolbarMode}`}>
+        {toolbarMode === "geometry" ? <div className="toolbar-section" data-group="workplane"><div className="toolbar-section-label">သင်ပုန်း</div><div id="cad-workplane-tools" className="toolbar-section-tools" /></div> : null}
         {toolbarMode === "geometry" ? (
           <>
       <div className="tool-group left">
@@ -14016,7 +14018,7 @@ function SecondaryToolbar({
       <div className="toolbar-title-row">
         {/* The brand, in the same corner as on the start page. Not a link:
             leaving the editor is not something to trigger by accident. */}
-        <a className="calm-editor-brand" href="/" title="ဧည့်ခန်း" onClick={async event => { event.preventDefault(); await onHome?.(); window.location.assign("/"); }}><span aria-hidden="true">←</span><span className="calm-home-label">ဧည့်ခန်း</span><span className="calm-header-divider" aria-hidden="true" /><strong>ကျောက်သင်ပုန်း</strong></a>
+        <a className="calm-editor-brand" href={CAD_ENTRY_PATH} title="ပြန်ထွက်မည်" onClick={async event => { event.preventDefault(); await onHome?.(); window.location.assign(CAD_ENTRY_PATH); }}><span aria-hidden="true">←</span><span className="calm-home-label">ပြန်ထွက်မည်</span><span className="calm-header-divider" aria-hidden="true" /><strong>ကျောက်သင်ပုန်း</strong></a>
         <div className="toolbar-workspace-tabs" role="tablist" aria-label={t("editor.modeLabel")}>
           <button
             className={toolbarMode === "geometry" ? "active" : ""}
