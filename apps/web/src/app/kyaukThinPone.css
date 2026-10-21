@@ -160,3 +160,58 @@ html[data-theme="dark"] .layerling-editor .toolbar-mode-content { background: #1
 .dashboard-shell .storage-notice-text span { font-weight: 500; }
 .dashboard-shell .storage-notice-actions { flex-shrink: 0; }
 @media (min-width: 1600px) { .dashboard-shell .storage-notice { flex-wrap: nowrap; } .dashboard-shell .storage-notice-text { white-space: nowrap; } }
+
+/* Compact header and dashboard project search. */
+:root, html[data-toolbar-size] { --editor-toolbar-title-height: 64px; }
+html .layerling-editor .toolbar-title-row { padding: 7px 16px; gap: 12px; border-bottom-width: 3px; }
+.calm-editor-brand strong { font-size: 21px; }
+.calm-editor-brand { gap: 9px; }
+.calm-home-label { font-size: 12px; }
+.calm-header-divider { height: 27px; }
+.layerling-editor .toolbar-workspace-tabs button { min-height: 38px; padding: 6px 13px; font-size: 13px; }
+.layerling-editor .toolbar-project-name { max-width: 215px; }
+.layerling-editor .toolbar-project-name-field input { min-height: 38px; font-size: 13px; }
+.calm-file-actions button { min-height: 38px; padding: 6px 10px; font-size: 12px; }
+.dashboard-topbar { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); gap: 16px; }
+.dashboard-cad-title { margin: 0; font-size: 24px; line-height: 1.8; color: #218877; }
+.dashboard-topbar-actions { justify-self: end; }
+.dashboard-shell .dashboard-brand-name { font-family: system-ui, sans-serif; font-size: 25px; line-height: 1.2; font-weight: 800; letter-spacing: -1px; color: #16343b; }
+.brand-pmm { color: #227c6d; }
+.dashboard-brand-caption { font-family: system-ui, sans-serif; font-size: 8px; letter-spacing: 1.5px; line-height: 1.4; color: #16343b; }
+.dashboard-shell .dashboard-brand-text { gap: 4px; }
+.dashboard-section-header > .dashboard-search { flex: 1 1 260px; max-width: 480px; min-width: 160px; margin-inline: auto 12px; }
+.dashboard-section-header { gap: 16px; flex-wrap: wrap; }
+
+/* Profile and settings have their own vertical box. */
+.editor-utility-box { position: fixed; bottom: 14px; left: 10px; z-index: 12; display: flex; flex-direction: column; gap: 4px; padding: 5px; border: 1px solid #aac5b3; border-radius: 12px; background: #edf4e9; }
+.layerling-editor .editor-utility-box button { width: 44px; height: 43px; display: grid; place-items: center; color: #214c3b; }
+html[data-theme="dark"] .editor-utility-box { background: #24483e; border-color: #527463; }
+html[data-theme="dark"] .layerling-editor .editor-utility-box button { color: #cbe5d1; }
+.layerling-editor .camera-controls { top: 126px; }
+.layerling-editor .camera-controls .camera-home-control,
+.layerling-editor .camera-controls .camera-fit-control,
+.layerling-editor .camera-controls .camera-projection-control { border: 1px solid #baccc1; border-radius: 50%; background: var(--panel); }
+#cad-workplane-tools > button, #cad-workplane-tools .workplane-control-group > button { width: 44px; height: 44px; display: inline-grid; place-items: center; border-radius: 6px; color: var(--toolbar-icon); }
+#cad-workplane-tools .workplane-control-group { display: flex; }
+#cad-workplane-tools button:hover { background: var(--tile-hover); }
+#cad-workplane-tools button:disabled { opacity: .35; }
+#cad-workplane-tools button.active { outline: 2px solid var(--primary); }
+.section-tool-popover { max-height: calc(100dvh - var(--editor-toolbar-height) - 24px); overscroll-behavior: contain; }
+.section-tool-popover:not(.floating) { position: fixed; top: calc(var(--editor-toolbar-height) + 12px); left: 108px; bottom: auto; width: min(300px, calc(100vw - 128px)); animation: none; }
+@media (max-width: 1050px) { .calm-home-label { display: inline; } .calm-editor-brand strong { font-size: 18px; } }
+@media (max-width: 800px) {
+  :root, html[data-toolbar-size] { --editor-toolbar-title-height: 108px; }
+  html .layerling-editor .toolbar-title-row { grid-template-rows: 37px 40px; padding: 6px 10px; gap: 6px; }
+  .layerling-editor .toolbar-workspace-tabs button { min-height: 33px; font-size: 11px; padding: 5px 8px; }
+  .calm-editor-brand { gap: 6px; } .calm-editor-brand strong { font-size: 16px; }
+  .calm-home-label { font-size: 10px; } .calm-editor-brand > span:first-child { font-size: 18px; }
+  .layerling-editor .toolbar-project-name { max-width: none; }
+  .dashboard-topbar { grid-template-columns: 1fr auto; gap: 6px; }
+  .dashboard-cad-title { grid-row: 2; grid-column: 1/-1; text-align: center; font-size: 21px; }
+  .dashboard-topbar-actions { grid-row: 1; grid-column: 2; gap: 4px; }
+  .dashboard-shell .dashboard-brand-name { font-size: 20px; }
+  .dashboard-brand-caption { font-size: 6px; letter-spacing: 1px; }
+  .dashboard-section-header > .dashboard-search { order: 1; flex-basis: 100%; max-width: none; margin: 0; }
+  .dashboard-section-header > .dashboard-controls { order: 2; }
+  .section-tool-popover:not(.floating) { left: 10px; width: calc(100vw - 20px); }
+}

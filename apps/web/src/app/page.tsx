@@ -2942,16 +2942,13 @@ function Dashboard({
   return (
     <main className="dashboard-shell">
       <header className="dashboard-topbar">
-        <a className="dashboard-brand" href="./" aria-label={t("brand.home")}>
+        <a className="dashboard-brand" href="/" aria-label="3DPMM home">
           <img src="/assets/kyauk-thin-pone/logo.svg" alt="" />
           <span className="dashboard-brand-text">
-            <span className="dashboard-brand-name">ကျောက်သင်ပုံး</span>
+            <span className="dashboard-brand-name">3D<span className="brand-pmm">PMM</span></span><small className="dashboard-brand-caption">3D PRINTING MYANMAR</small>
           </span>
         </a>
-        <div className="dashboard-search">
-          <Search size={18} strokeWidth={2.4} />
-          <input value={query} onChange={(event) => onQueryChange(event.currentTarget.value)} placeholder={t("dashboard.searchPlaceholder")} aria-label={t("dashboard.searchLabel")} />
-        </div>
+        <h1 className="dashboard-cad-title">ကျောက်သင်ပုံး</h1>
         <div className="dashboard-topbar-actions">
           <ThemeSwitch />
           <LanguageSwitch />
@@ -3375,6 +3372,10 @@ function Dashboard({
                     ? t("dashboard.projectsVisibleOne")
                     : t("dashboard.projectsVisibleMany", { count: projects.length })}</span>
                 </div>
+        <div className="dashboard-search">
+          <Search size={18} strokeWidth={2.4} />
+          <input value={query} onChange={(event) => onQueryChange(event.currentTarget.value)} placeholder={t("dashboard.searchPlaceholder")} aria-label={t("dashboard.searchLabel")} />
+        </div>
                 <div className="dashboard-controls">
                   {sharedProjectsEnabled ? (
                     <label className="dashboard-select dashboard-new-on-server" title={t(newDesignsOnServerLocked ? "dashboard.newOnServerLockedTitle" : "dashboard.newOnServerTitle")}>
