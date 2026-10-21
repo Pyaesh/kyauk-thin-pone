@@ -13641,6 +13641,7 @@ function SecondaryToolbar({
             </div>}
             {shapeGroup !== "custom" && !libraryShapeAssets.some(shape => cadShapeGroup(shape.id) === shapeGroup && (!shapeSearch.trim() || `${shapeAssetMenuLabel(shape)} ${shape.name}`.toLocaleLowerCase().includes(shapeSearch.trim().toLocaleLowerCase()))) ? <p className="cad-shape-empty">{language === "my" ? "ပုံ မတွေ့ပါ" : "No shapes found"}</p> : null}
           </div>
+          <div id="cad-inspector-host" className="cad-inspector-host" />
         </div>
       </div>
       <div className="toolbar-spacer" />
