@@ -7422,7 +7422,7 @@ html[data-theme="dark"] .panel-grip:hover {
   flex: 1;
 }
 
-.camera-controls .section-tool-popover .section-toggle-btn {
+.section-tool-popover .section-toggle-btn {
   padding: 3px 9px;
   font-size: 11px;
   font-weight: 600;
@@ -7436,14 +7436,14 @@ html[data-theme="dark"] .panel-grip:hover {
   height: 24px;
 }
 
-.camera-controls .section-tool-popover .section-toggle-btn.active {
+.section-tool-popover .section-toggle-btn.active {
   background: #228771;
   border-color: #228771;
   color: #ffffff;
   box-shadow: 0 1px 4px rgba(210, 112, 9, 0.35);
 }
 
-.camera-controls .section-tool-popover .section-popover-close {
+.section-tool-popover .section-popover-close {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7463,7 +7463,7 @@ html[data-theme="dark"] .panel-grip:hover {
   border-radius: 6px;
 }
 
-.camera-controls .section-tool-popover .section-popover-close:hover {
+.section-tool-popover .section-popover-close:hover {
   background: rgba(0, 0, 0, 0.06);
   color: #182720;
 }
@@ -7490,7 +7490,7 @@ html[data-theme="dark"] .panel-grip:hover {
   border-radius: 8px;
 }
 
-.camera-controls .section-tool-popover .section-axis-btn {
+.section-tool-popover .section-axis-btn {
   flex: 1;
   height: 28px;
   width: auto;
@@ -7505,18 +7505,18 @@ html[data-theme="dark"] .panel-grip:hover {
   transition: all 100ms ease;
 }
 
-.camera-controls .section-tool-popover .section-axis-btn:hover {
+.section-tool-popover .section-axis-btn:hover {
   background: rgba(255, 255, 255, 0.5);
   color: #182720;
 }
 
-.camera-controls .section-tool-popover .section-axis-btn.active {
+.section-tool-popover .section-axis-btn.active {
   background: #ffffff;
   color: #228771;
   box-shadow: 0 1px 3px rgba(84, 59, 32, 0.15);
 }
 
-.camera-controls .section-tool-popover .section-flip-btn {
+.section-tool-popover .section-flip-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7531,12 +7531,12 @@ html[data-theme="dark"] .panel-grip:hover {
   transition: all 120ms ease;
 }
 
-.camera-controls .section-tool-popover .section-flip-btn:hover {
+.section-tool-popover .section-flip-btn:hover {
   background: #e7f1ec;
   color: #182720;
 }
 
-.camera-controls .section-tool-popover .section-flip-btn.active {
+.section-tool-popover .section-flip-btn.active {
   background: #f0f5f2;
   border-color: #228771;
   color: #228771;
@@ -7666,7 +7666,7 @@ html[data-theme="dark"] .panel-grip:hover {
   flex-shrink: 0;
 }
 
-.camera-controls .section-tool-popover .section-action-btn {
+.section-tool-popover .section-action-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -7687,7 +7687,7 @@ html[data-theme="dark"] .panel-grip:hover {
   transition: all 120ms ease;
 }
 
-.camera-controls .section-tool-popover .section-action-btn:hover {
+.section-tool-popover .section-action-btn:hover {
   background: #e7f1ec;
   color: #182720;
 }
@@ -7718,7 +7718,7 @@ html[data-theme="dark"] .inspector-bundle-note {
   border-top: 1px solid #dceae3;
 }
 
-.camera-controls .section-tool-popover .section-measure-btn.active {
+.section-tool-popover .section-measure-btn.active {
   color: #fff;
   background: #228771;
   border-color: #228771;

@@ -215,3 +215,8 @@ html[data-theme="dark"] .layerling-editor .editor-utility-box button { color: #c
   .dashboard-section-header > .dashboard-controls { order: 2; }
   .section-tool-popover:not(.floating) { left: 10px; width: calc(100vw - 20px); }
 }
+
+.camera-rail { position: absolute; top: 126px; left: 10px; z-index: 11; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.layerling-editor .camera-rail > .camera-controls { position: relative; top: auto; left: auto; order: 1; }
+.camera-rail > .editor-utility-box { position: static; order: 2; }
+@container workplane (max-height: 440px) { .camera-rail { top: 100px; flex-direction: row; } }

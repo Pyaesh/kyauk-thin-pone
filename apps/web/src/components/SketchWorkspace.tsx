@@ -1789,7 +1789,7 @@ export function SketchWorkspace({
     <main className="sketch-workspace-stage" style={sketchColorStyle}>
       <div className="sketch-mode-badge">{operation === "revolve" ? t("sketch.modeBadgeRevolve") : operation === "sweep" ? t("sketch.modeBadgeSweep") : t("sketch.modeBadge")}</div>
       {operation === "revolve" ? <SketchRevolvePreview positions={revolvePreviewPositions} /> : null}
-      <EditorUtilityControls />
+      <div className="camera-rail"><EditorUtilityControls />
       <div className="camera-controls sketch-camera-controls" aria-label={t("sketch.viewControls")} data-help-section="cameraBar">
         <button aria-label={t("sketch.resetView")} aria-keyshortcuts="Home" title={t("camera.shortcut", { label: t("sketch.resetView"), keys: "Home" })} onClick={resetView}><HomeViewIcon /></button>
         <button
@@ -1830,6 +1830,7 @@ export function SketchWorkspace({
             <Layers size={26} strokeWidth={2.2} aria-hidden="true" />
           </button>
         ) : null}
+      </div>
       </div>
       <section ref={wrapRef} className="sketch-plate-wrap" aria-label="2D sketch plate">
         <svg
