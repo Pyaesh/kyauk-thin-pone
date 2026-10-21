@@ -2534,7 +2534,7 @@ export function ShapeInspector({
     : [];
   const isSketchRevolve = shape.sketchOperation === "revolve" || Boolean(shape.sketchRevolve);
   // Docked at the right edge until its title bar is dragged; then it floats where it was dropped.
-  const movable = useMovablePanel<HTMLElement>("layerling.editor.inspectorPosition", INSPECTOR_PANEL);
+  const movable = useMovablePanel<HTMLElement>("layerling.editor.sidebarInspectorPosition", INSPECTOR_PANEL);
   const inspectorRef = movable.panelRef;
   const [propertiesOpen, setPropertiesOpen] = useInspectorCard("properties", true);
   const [textFillMoreOpen, setTextFillMoreOpen] = useState(false);
@@ -4523,7 +4523,7 @@ export function SelectionInspector({
   onSnapDockedChange?: (docked: boolean) => void;
 }) {
   useLanguage();
-  const movable = useMovablePanel<HTMLElement>("layerling.editor.inspectorPosition", INSPECTOR_PANEL);
+  const movable = useMovablePanel<HTMLElement>("layerling.editor.sidebarInspectorPosition", INSPECTOR_PANEL);
   useEffect(() => {
     onSnapDockedChange?.(!movable.moved);
     return () => onSnapDockedChange?.(false);

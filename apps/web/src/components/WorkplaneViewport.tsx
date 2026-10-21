@@ -1,5 +1,6 @@
 "use client";
 
+import { ShapeInspectorDock } from "@/components/ShapeInspectorDock";
 import { createPortal } from "react-dom";
 import { EditorUtilityControls, WorkplaneSidebarTools, HomeViewIcon, FitViewIcon, ProjectionViewIcon, TapeMeasureIcon, WorkplanePlacementIcon, DropToPlaneIcon } from "@/components/EditorUtilityControls";
 import { markEscapeHandled } from "@/lib/escapeHandled";
@@ -9506,6 +9507,7 @@ export function WorkplaneViewport({
       </section>
 
       {selectedShape && !splitActive && !modifierActive && !tapeMode && !tapeDeleteMode && !tapeMoveMode ? (
+        <ShapeInspectorDock>
         <ShapeInspector
           shape={shapeWithParametricSource(selectedShape)}
           snap={snap}
@@ -9544,9 +9546,11 @@ export function WorkplaneViewport({
           onInteractionActiveChange={onInteractionActiveChange}
           onSnapGridAwayChange={setInspectorSnapGridAway}
         />
+        </ShapeInspectorDock>
       ) : null}
 
       {selectedIds.length > 1 && !splitActive && !modifierActive && !tapeMode && !tapeDeleteMode && !tapeMoveMode && onSelectionHole && onSelectionColor && onSelectionLock ? (
+        <ShapeInspectorDock>
         <SelectionInspector
           shapes={shapes.filter((shape) => selectedIds.includes(shape.id))}
           onSetHole={onSelectionHole}
@@ -9563,6 +9567,7 @@ export function WorkplaneViewport({
           onObjectSnapChange={changeObjectSnap}
           onSnapDockedChange={setSelectionSnapDocked}
         />
+        </ShapeInspectorDock>
       ) : null}
 
       {(!selectedShape && !selectionSnapDocked) || inspectorSnapGridAway ? (
