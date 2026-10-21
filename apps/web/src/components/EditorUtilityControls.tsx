@@ -32,6 +32,6 @@ export function ProjectionViewIcon() { return <svg width="28" height="28" viewBo
 
 export function WorkplaneSidebarTools({ children }: { children: ReactNode }) {
   const [target, setTarget] = useState<HTMLElement | null>(null);
-  useEffect(() => { setTarget(document.getElementById("cad-workplane-tools")); }, []);
+  useEffect(() => { const sync = () => { const next = document.getElementById("cad-workplane-tools"); setTarget(current => current === next ? current : next); }; sync(); const observer = new MutationObserver(sync); observer.observe(document.body, { childList: true, subtree: true }); return () => observer.disconnect(); }, []);
   return target ? createPortal(children, target) : null;
 }

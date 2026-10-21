@@ -1,5 +1,8 @@
 "use client";
 
+import { CadFullscreenButton } from "@/components/CadFullscreenButton";
+import { CadFeatureGroup } from "@/components/CadFeatureGroup";
+import { CAD_SHAPE_GROUPS, cadShapeGroup, type CadShapeGroup } from "@/lib/cadShapeGroups";
 import { CAD_ENTRY_PATH } from "@/lib/cadEntry";
 import { SketchEditorSettings } from "@/components/SketchEditorSettings";
 import { EditorMoreMenu } from "@/components/EditorMoreMenu";
@@ -13133,6 +13136,10 @@ function SecondaryToolbar({
   onSelectObject: (id: string) => void;
 }) {
   const [shapesOpen, setShapesOpen] = useState(false);
+  const [shapeGroup, setShapeGroup] = useState<CadShapeGroup>("basic");
+  const [shapeSearch, setShapeSearch] = useState("");
+  const [editingName, setEditingName] = useState(false);
+  useEffect(() => { if (editingName) { projectNameInputRef.current?.focus(); projectNameInputRef.current?.select(); } }, [editingName]);
   // The Shapes panel kept open while shapes are placed one after the other (#433); remembered in this browser.
   const [geometryShapesPinned, setGeometryShapesPinned] = useState(false);
   // The sketch's panel has its own pin, its own place and its own size (#577).
@@ -13328,7 +13335,7 @@ function SecondaryToolbar({
   };
   // Die Leiste haengt an der Sprache: ohne dieses Abonnement bliebe sie stehen,
   // falls sie spaeter einmal memoisiert wird.
-  useLanguage();
+  const language = useLanguage();
   const leftTools = [
     { id: "copy", label: t("editor.tool.copy"), icon: ToolbarCopyIcon, action: onCopy, enabled: hasSelection },
     { id: "paste", label: t("editor.tool.paste"), icon: ToolbarPasteIcon, action: onPaste, enabled: hasClipboard },
@@ -13549,7 +13556,6 @@ function SecondaryToolbar({
     <div className="secondary-toolbar">
       {paletteOpen ? <CommandPalette commands={buildPaletteCommands()} onClose={() => setPaletteOpen(false)} /> : null}
       <div ref={toolbarContentRef} className={`toolbar-mode-content ${toolbarMode}`}>
-        {toolbarMode === "geometry" ? <div className="toolbar-section" data-group="workplane"><div className="toolbar-section-label">သင်ပုန်း</div><div id="cad-workplane-tools" className="toolbar-section-tools" /></div> : null}
         {toolbarMode === "geometry" ? (
           <>
       <div className="tool-group left">
@@ -13557,38 +13563,16 @@ function SecondaryToolbar({
           <div className="toolbar-section-label">{t("editor.group.history")}</div>
           <div className="toolbar-section-tools">{leftTools.slice(0, 6).map(renderToolButton)}</div>
         </div>
-        <div className="toolbar-section toolbar-shapes-section" data-group="shapes" ref={shapesMenuRef} inert={historyViewActive}>
-          <div className="toolbar-section-label">{t("editor.group.shapes")}</div>
-          <div className="toolbar-section-tools">
-            <button
-              className={`shape-menu-trigger ${shapesOpen ? "active" : ""}`}
-              aria-label={t("editor.addShape")}
-              aria-expanded={shapesOpen}
-              onClick={() => {
-                setVisibilityOpen(false);
-                setShapesOpen((value) => !value);
-              }}
-            >
-              <ToolbarShapeAddIcon />
-            </button>
+        <div className="toolbar-section cad-shape-library" data-group="shapes" ref={shapesMenuRef} inert={historyViewActive}>
+          <div className="cad-library-controls">
+            <select aria-label={language === "my" ? "ပုံအုပ်စု" : "Shape category"} value={shapeGroup} onChange={event => { setShapeGroup(event.target.value as CadShapeGroup); setShapeSearch(""); }}>
+              {CAD_SHAPE_GROUPS.map(group => <option key={group.id} value={group.id}>{language === "my" ? group.my : group.en}</option>)}
+            </select>
+            {shapeGroup !== "custom" ? <label className="cad-shape-search"><Search size={17} /><input aria-label={language === "my" ? "ပုံများ ရှာရန်" : "Search shapes"} placeholder={language === "my" ? "ရှာရန်" : "Search shapes"} value={shapeSearch} onChange={event => setShapeSearch(event.target.value)} /></label> : null}
           </div>
-          {shapesOpen ? (
-            <ShapeMenuPanel
-              title={t("shape.basicShapes")}
-              helpSection="addShape"
-              pinned={shapesPinned}
-              onTogglePinned={toggleShapesPinned}
-              resizable
-            >
-              <div className="shape-menu-body">
-              {renderMyShapes ? (
-                <>
-                  {renderMyShapes(closeShapesAfterPick)}
-                  <div className="shape-menu-subtitle">{t("myShapes.basicShapes")}</div>
-                </>
-              ) : null}
-              <div className="shape-menu-list">
-                {libraryShapeAssets.map((shape) => (
+          <div className="cad-shape-scroll">
+            {shapeGroup === "custom" ? renderMyShapes?.(() => {}) : <div className="shape-menu-list cad-shape-grid">
+                {libraryShapeAssets.filter(shape => cadShapeGroup(shape.id) === shapeGroup && (!shapeSearch.trim() || `${shapeAssetMenuLabel(shape)} ${shape.name}`.toLocaleLowerCase().includes(shapeSearch.trim().toLocaleLowerCase()))).map((shape) => (
                   <button
                     className="shape-menu-item"
                     key={shape.id}
@@ -13654,15 +13638,14 @@ function SecondaryToolbar({
                     <span className={shapeAssetMenuLabel(shape).split(/\s+/).some((word) => word.length > 13) ? "long-word" : undefined}>{shapeAssetMenuLabel(shape)}</span>
                   </button>
                 ))}
-              </div>
-              </div>
-            </ShapeMenuPanel>
-          ) : null}
+            </div>}
+            {shapeGroup !== "custom" && !libraryShapeAssets.some(shape => cadShapeGroup(shape.id) === shapeGroup && (!shapeSearch.trim() || `${shapeAssetMenuLabel(shape)} ${shape.name}`.toLocaleLowerCase().includes(shapeSearch.trim().toLocaleLowerCase()))) ? <p className="cad-shape-empty">{language === "my" ? "ပုံ မတွေ့ပါ" : "No shapes found"}</p> : null}
+          </div>
         </div>
       </div>
       <div className="toolbar-spacer" />
-      <div className="tool-group right" inert={historyViewActive}>
-        <div className="toolbar-section compact toolbar-visibility-section" data-group="visibility" ref={visibilityMenuRef}>
+      <div className="tool-group right cad-feature-rail" inert={historyViewActive}>
+        <CadFeatureGroup group="visibility" title={t("editor.group.visibility")} icon={<Eye size={23} />} containerRef={visibilityMenuRef}>
           <div className="toolbar-section-label">{t("editor.group.visibility")}</div>
           <div className="toolbar-section-tools">
             {visibilityTools.map(renderToolButton)}
@@ -13761,19 +13744,19 @@ function SecondaryToolbar({
               </div>
             </div>
           ) : null}
-        </div>
-        <div className="toolbar-section" data-group="combine">
+        </CadFeatureGroup>
+        <CadFeatureGroup group="combine" title={t("editor.group.combine")} icon={<Blend size={23} />}>
           <div className="toolbar-section-label">{t("editor.group.combine")}</div>
           <div className="toolbar-section-tools">{combineTools.map(renderToolButton)}</div>
-        </div>
-        <div className="toolbar-section" data-group="modify">
+        </CadFeatureGroup>
+        <CadFeatureGroup group="modify" title={t("editor.group.modify")} icon={<Pencil size={23} />}>
           <div className="toolbar-section-label">{t("editor.group.modify")}</div>
           <div className="toolbar-section-tools">{modifyTools.map(renderToolButton)}</div>
-        </div>
-        <div className="toolbar-section" data-group="arrange">
+        </CadFeatureGroup>
+        <CadFeatureGroup group="arrange" title={t("editor.group.arrange")} icon={<ListTree size={23} />}>
           <div className="toolbar-section-label">{t("editor.group.arrange")}</div>
           <div className="toolbar-section-tools">{arrangeTools.map(renderToolButton)}</div>
-        </div>
+        </CadFeatureGroup>
       </div>
 
 
@@ -14007,18 +13990,11 @@ function SecondaryToolbar({
           </div>
         )}
       </div>
-      <EditorMoreMenu>
-        <button type="button" onClick={onNoteTool} disabled={historyViewActive || toolbarMode !== "geometry"}><ToolbarNoteIcon />{t("editor.tool.note")}</button>
-        <button type="button" onClick={onHistoryView} disabled={!canHistoryView || toolbarMode !== "geometry"}><ToolbarHistoryIcon />{t("editor.tool.history")}</button>
-        <button type="button" onClick={openPalette}><Search size={22} />{t("palette.open")}</button>
-        <button type="button" onClick={onGuide}><ToolbarGuideIcon />{t("editor.guide")}</button>
-        <button type="button" onClick={onShortcuts}><ToolbarKeyboardIcon />{t("editor.keyboardShortcuts")}</button>
-        <button type="button" onClick={onInteractiveHelp} aria-pressed={interactiveHelpActive}><CircleHelp size={22} />{t("interactiveHelp.title")}</button>
-      </EditorMoreMenu>
+
       <div className="toolbar-title-row">
         {/* The brand, in the same corner as on the start page. Not a link:
             leaving the editor is not something to trigger by accident. */}
-        <a className="calm-editor-brand" href={CAD_ENTRY_PATH} title="ပြန်ထွက်မည်" onClick={async event => { event.preventDefault(); await onHome?.(); window.location.assign(CAD_ENTRY_PATH); }}><span aria-hidden="true">←</span><span className="calm-home-label">ပြန်ထွက်မည်</span><span className="calm-header-divider" aria-hidden="true" /><strong>ကျောက်သင်ပုန်း</strong></a>
+        <div className="cad-brand-with-fullscreen"><a className="calm-editor-brand" href={CAD_ENTRY_PATH} title="ပြန်ထွက်မည်" onClick={async event => { event.preventDefault(); await onHome?.(); window.location.assign(CAD_ENTRY_PATH); }}><span aria-hidden="true">←</span><span className="calm-home-label">ပြန်ထွက်မည်</span><span className="calm-header-divider" aria-hidden="true" /><strong>ကျောက်သင်ပုန်း</strong></a><CadFullscreenButton /></div>
         <div className="toolbar-workspace-tabs" role="tablist" aria-label={t("editor.modeLabel")}>
           <button
             className={toolbarMode === "geometry" ? "active" : ""}
@@ -14042,15 +14018,18 @@ function SecondaryToolbar({
         </div>
         <div className="calm-header-project">
         <div className="toolbar-project-name">
-          <label ref={projectNameFieldRef} className="toolbar-project-name-field" title={t("editor.renameProject")}>
+          <label ref={projectNameFieldRef} className={`toolbar-project-name-field ${editingName ? "editing" : ""}`} title="ဖိုင်နာမည်ပြောင်း">
             <input
               ref={projectNameInputRef}
               aria-label={t("confirm.projectName")}
               value={projectNameDraft}
+              readOnly={!editingName}
+              onClick={() => setEditingName(true)}
               maxLength={80}
               spellCheck={false}
               onChange={(event) => setProjectNameDraft(event.target.value)}
               onBlur={(event) => {
+                setEditingName(false);
                 if (cancelProjectNameEditRef.current) {
                   cancelProjectNameEditRef.current = false;
                   setProjectNameDraft(projectName);
@@ -14059,6 +14038,7 @@ function SecondaryToolbar({
                 commitProjectName(event.currentTarget.value);
               }}
               onKeyDown={(event) => {
+                if (!editingName && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); setEditingName(true); return; }
                 if (event.key === "Enter") event.currentTarget.blur();
                 if (event.key === "Escape") {
                   cancelProjectNameEditRef.current = true;
@@ -14071,6 +14051,14 @@ function SecondaryToolbar({
         </div>
         <div className="calm-file-actions">
           <button type="button" onClick={() => onTopPanel("import")} disabled={historyViewActive}>ဖိုင်ဖွင့်</button>
+      <EditorMoreMenu>
+        <button type="button" onClick={onNoteTool} disabled={historyViewActive || toolbarMode !== "geometry"}><ToolbarNoteIcon />{t("editor.tool.note")}</button>
+        <button type="button" onClick={onHistoryView} disabled={!canHistoryView || toolbarMode !== "geometry"}><ToolbarHistoryIcon />{t("editor.tool.history")}</button>
+        <button type="button" onClick={openPalette}><Search size={22} />{t("palette.open")}</button>
+        <button type="button" onClick={onGuide}><ToolbarGuideIcon />{t("editor.guide")}</button>
+        <button type="button" onClick={onShortcuts}><ToolbarKeyboardIcon />{t("editor.keyboardShortcuts")}</button>
+        <button type="button" onClick={onInteractiveHelp} aria-pressed={interactiveHelpActive}><CircleHelp size={22} />{t("interactiveHelp.title")}</button>
+      </EditorMoreMenu>
           <button type="button" onClick={() => onTopPanel("export")}>ဖိုင်ထုတ်</button>
         </div>
         </div>

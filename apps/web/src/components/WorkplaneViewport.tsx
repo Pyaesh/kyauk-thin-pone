@@ -8894,14 +8894,14 @@ export function WorkplaneViewport({
           </button>
         ) : (
           <>
-            <button className="camera-home-control" aria-label={t("camera.home")} aria-keyshortcuts="Home" title={t("camera.shortcut", { label: t("camera.home"), keys: "Home" })} onClick={resetView}>
+            <button className="camera-home-control" aria-label={t("camera.home")} aria-keyshortcuts="Home" title={t("camera.home")} onClick={resetView}>
               <HomeViewIcon />
             </button>
             <button
               className="camera-fit-control"
               aria-label={t("camera.focusSelection")}
               aria-keyshortcuts="F Shift+F"
-              title={t("camera.shortcut", { label: t("camera.focusSelection"), keys: "F" })}
+              title={t("camera.focusSelection")}
               onClick={() => { if (!focusSelection(true)) resetView(); }}
             >
               <FitViewIcon />
@@ -9292,10 +9292,7 @@ export function WorkplaneViewport({
               aria-label={t("camera.orthographic")}
               aria-keyshortcuts="O"
               aria-pressed={orthographicView}
-              title={t("camera.shortcut", {
-                label: orthographicView ? t("camera.perspective") : t("camera.orthographic"),
-                keys: "O",
-              })}
+              title={t("camera.orthographic")}
               onClick={toggleProjection}
             >
               <ProjectionViewIcon />

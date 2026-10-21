@@ -2,6 +2,14 @@ import type { MessageKey } from "./messages.en";
 
 // Initial Burmese catalogue. Untranslated advanced tools intentionally fall back to English.
 export const MESSAGES_MY: Partial<Record<MessageKey, string>> = {
+  "camera.home": "ပင်မမြင်ကွင်း",
+  "camera.focusSelection": "ပုံများကို ခြုံငုံကြည့်ရန်",
+  "camera.hideWorkplane": "အောက်ခံပြား ဖျောက်ရန်",
+  "camera.showWorkplane": "အောက်ခံပြား ပြရန်",
+  "camera.tapeTools": "ပေတံ",
+  "camera.sectionView": "ကန့်လန့်ဖြတ်မြင်ကွင်း",
+  "camera.orthographic": "မြင်ကွင်းပုံစံပြောင်းရန်",
+  "camera.perspective": "မြင်ကွင်းပုံစံပြောင်းရန်",
   "common.cancel": "မလုပ်တော့ပါ",
   "common.save": "သိမ်းမယ်",
   "common.delete": "ဖျက်မယ်",

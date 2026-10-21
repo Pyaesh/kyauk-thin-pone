@@ -220,3 +220,80 @@ html[data-theme="dark"] .layerling-editor .editor-utility-box button { color: #c
 .layerling-editor .camera-rail > .camera-controls { position: relative; top: auto; left: auto; order: 1; }
 .camera-rail > .editor-utility-box { position: static; order: 2; }
 @container workplane (max-height: 440px) { .camera-rail { top: 100px; flex-direction: row; } }
+
+/* Studio layout: docked library, single-column features, and floating history. */
+.layerling-editor { --cad-tools-width: 300px; --cad-feature-width: 52px; }
+.layerling-editor .editor-body { right: calc(var(--cad-tools-width) + var(--cad-feature-width)); }
+html .layerling-editor .toolbar-mode-content.geometry,
+html[data-toolbar-size="large"] .layerling-editor .toolbar-mode-content.geometry { padding: 12px 10px; gap: 0; background: var(--panel); }
+.layerling-editor .cad-shape-library { height: 100%; min-height: 0; display: flex; flex-direction: column; gap: 10px; }
+.cad-library-controls { flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; }
+.cad-library-controls select { width: 100%; min-width: 0; min-height: 42px; padding: 6px 9px; color: var(--foreground); background: var(--tile); border: 1px solid var(--border-strong); border-radius: 6px; font-size: 13px; }
+.cad-shape-search { display: flex; align-items: center; gap: 6px; padding: 4px 9px; color: var(--muted-strong); background: var(--tile); border: 1px solid var(--border); border-radius: 6px; }
+.cad-shape-search input { min-width: 0; width: 100%; height: 32px; background: transparent; border: 0; color: var(--foreground); font-size: 12px; }
+.cad-shape-scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; }
+.cad-shape-grid.shape-menu-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 0; }
+.cad-shape-grid .shape-menu-item { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 4px; min-width: 0; min-height: 104px; width: auto; height: auto; padding: 6px 3px; border: 1px solid var(--border); border-radius: 6px; background: var(--tile); color: var(--foreground); font-size: 10px; line-height: 1.5; cursor: grab; text-align: center; }
+.cad-shape-grid .shape-menu-item:active { cursor: grabbing; }
+.cad-shape-grid .shape-menu-item:hover { background: var(--tile-hover); border-color: var(--primary); }
+.cad-shape-grid .shape-menu-item img { width: 62px; height: 62px; flex-shrink: 0; object-fit: contain; }
+.cad-shape-grid .shape-menu-item span { width: 100%; white-space: normal; overflow-wrap: anywhere; }
+.cad-shape-empty { padding: 12px; font-size: 12px; color: var(--muted-strong); }
+.cad-shape-scroll .my-shapes-panel { min-width: 0; max-width: 100%; }
+.layerling-editor .toolbar-mode-content .tool-group.cad-feature-rail { position: fixed; display: flex; flex-direction: column; align-items: center; gap: 8px; right: var(--cad-tools-width); top: var(--editor-toolbar-title-height); bottom: 0; width: var(--cad-feature-width); padding: 12px 4px; background: var(--subbar); border-inline: 1px solid var(--border); overflow: visible; }
+.layerling-editor .cad-feature-group { width: 44px; height: auto; padding: 0; }
+.cad-feature-group > summary { display: flex; align-items: center; justify-content: center; width: 42px; height: 44px; border: 1px solid var(--border-strong); border-radius: 7px; color: var(--foreground); background: var(--tile); list-style: none; cursor: pointer; }
+.cad-feature-group > summary::-webkit-details-marker { display: none; }
+.cad-feature-group[open] > summary { outline: 2px solid var(--primary); }
+.cad-feature-popover { position: absolute; top: 0; right: calc(100% + 8px); z-index: 65; width: min(264px, calc(100vw - var(--cad-tools-width) - var(--cad-feature-width) - 12px)); max-height: calc(100dvh - var(--editor-toolbar-title-height) - 36px); overflow-y: auto; padding: 10px; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--panel); box-shadow: 0 8px 24px #122f3430; }
+.layerling-editor .cad-feature-popover .toolbar-section-tools { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); justify-items: center; min-height: 0; padding: 4px; }
+.layerling-editor .calm-history-section { position: fixed; top: calc(var(--editor-toolbar-title-height) + 8px); right: calc(var(--cad-tools-width) + var(--cad-feature-width) + 10px); width: min(284px, calc(100vw - var(--cad-tools-width) - var(--cad-feature-width) - 84px)); z-index: 21; }
+.layerling-editor .calm-history-section > .toolbar-section-label { display: none; }
+.layerling-editor .calm-history-section .toolbar-section-tools { display: flex; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; width: 100%; min-height: 44px; gap: 1px; }
+.layerling-editor .calm-history-section .toolbar-icon { flex-shrink: 0; }
+.layerling-editor .camera-controls { display: flex !important; flex-direction: column; grid-template-columns: none; }
+.layerling-editor .view-cube { transform: scale(1.12); transform-origin: top left; }
+.layerling-editor .camera-rail { top: 140px; }
+.cad-brand-with-fullscreen { display: flex; align-items: center; min-width: 0; gap: 8px; }
+.cad-fullscreen { display: grid; place-items: center; width: 32px; height: 34px; flex-shrink: 0; border-radius: 5px; color: #e7eedf; }
+.cad-fullscreen:hover { background: #315c4c; }
+.cad-fullscreen:disabled { opacity: .4; }
+.layerling-editor .toolbar-project-name-field input { border-radius: 999px; padding-inline: 13px; cursor: pointer; caret-color: transparent; }
+.layerling-editor .toolbar-project-name-field.editing input { cursor: text; caret-color: currentColor; }
+.layerling-editor .toolbar-project-name-field > svg { display: none; }
+.calm-file-actions .editor-more-menu { position: relative; top: auto; right: auto; }
+.calm-file-actions .editor-more-menu > summary { width: 36px; height: 38px; }
+.calm-file-actions .editor-more-content { top: 44px; right: 0; max-height: calc(100dvh - var(--editor-toolbar-height) - 16px); }
+.cad-plane-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.cad-plane-actions:empty { display: none; }
+.cad-plane-actions button { display: grid; place-items: center; }
+.cad-language-toggle, .cad-theme-toggle { display: grid; place-items: center; width: 42px; height: 40px; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--tile); color: var(--foreground); cursor: pointer; font-weight: 600; }
+.cad-language-toggle:hover, .cad-theme-toggle:hover { background: var(--tile-hover); }
+@media (max-width: 800px) {
+  .layerling-editor { --cad-tools-width: 160px; --cad-feature-width: 44px; }
+  html .layerling-editor .toolbar-mode-content.geometry { padding: 8px; }
+  .cad-shape-grid.shape-menu-list { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 5px; }
+  .cad-shape-grid .shape-menu-item { min-height: 84px; font-size: 9px; }
+  .cad-shape-grid .shape-menu-item img { width: 44px; height: 44px; }
+  .cad-library-controls select { font-size: 11px; }
+  .cad-feature-group > summary { width: 35px; height: 40px; }
+  .layerling-editor .cad-feature-group { width: 35px; }
+  .layerling-editor .view-cube { transform: scale(1.02); }
+  .cad-brand-with-fullscreen { gap: 2px; }
+  .cad-brand-with-fullscreen .calm-home-label { display: none; }
+  .cad-fullscreen { width: 26px; }
+  .layerling-editor .calm-history-section .toolbar-icon { width: 30px; min-width: 30px; height: 36px; padding: 4px; }
+  .cad-feature-popover { padding: 6px; }
+  .layerling-editor .cad-feature-popover .toolbar-section-tools { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 800px) {
+  .layerling-editor .calm-history-section { left: 10px; right: calc(var(--cad-tools-width) + var(--cad-feature-width) + 8px); width: auto; }
+  .layerling-editor .calm-history-section .toolbar-icon { width: 26px; min-width: 26px; height: 34px; padding: 3px; }
+  .layerling-editor .calm-history-section .toolbar-section-tools { padding: 1px; gap: 0; }
+  .layerling-editor .view-cube { top: 74px; }
+  .layerling-editor .camera-rail { top: 186px; }
+}
+@container workplane (max-height: 460px) {
+  .layerling-editor .camera-rail { top: 140px; flex-direction: row; }
+  .layerling-editor .camera-controls > button, .layerling-editor .camera-controls > div > button { height: 34px; }
+}
