@@ -297,3 +297,6 @@ html[data-toolbar-size="large"] .layerling-editor .toolbar-mode-content.geometry
   .layerling-editor .camera-rail { top: 140px; flex-direction: row; }
   .layerling-editor .camera-controls > button, .layerling-editor .camera-controls > div > button { height: 34px; }
 }
+@media (max-width: 800px) {
+  .calm-file-actions .editor-more-content { position: fixed; top: calc(var(--editor-toolbar-title-height) + 4px); right: 10px; left: auto; width: min(320px, calc(100vw - 20px)); }
+}
