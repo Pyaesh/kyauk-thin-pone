@@ -20,18 +20,16 @@ export const DEFAULT_EDGE_LINE_COLOR = "#000000";
 export const WORKPLANE_LABEL_ASPECT = 4;
 const WORKPLANE_LABEL_MIN_HEIGHT = 3;
 const WORKPLANE_LABEL_MAX_HEIGHT = 26;
-const WORKPLANE_LABEL_HEIGHT_RATIO = 0.085;
+const WORKPLANE_LABEL_HEIGHT_RATIO = 0.07;
 const WORKPLANE_LABEL_MAX_WIDTH_RATIO = 0.62;
 /**
  * Gap between the plane edge and the nearest edge of the text, as a share of
  * the text height. The same on both axes, so the label sits squarely in the
  * corner rather than closer to one edge than the other.
  *
- * Kept small: the texture carries padding of its own, so the gap that reads on
- * screen is already wider than this, and a caption that drifts away from its
- * corner wastes the plane it is supposed to leave free.
+ * Leaves breathing room between the boundary and the smaller captions.
  */
-const WORKPLANE_LABEL_INSET_RATIO = 0.05;
+const WORKPLANE_LABEL_INSET_RATIO = 0.35;
 
 export type WorkplaneLabelLayout = {
   width: number;
@@ -66,9 +64,7 @@ export function workplaneLabelLayout(width: number, depth: number): WorkplaneLab
   const labelWidth = Math.min(clampedHeight * WORKPLANE_LABEL_ASPECT, maxLabelWidth);
   const labelHeight = labelWidth / WORKPLANE_LABEL_ASPECT;
   const inset = labelHeight * WORKPLANE_LABEL_INSET_RATIO;
-  // The axis arrows share the front left corner, and the name does not make room for them: it starts at
-  // the corner as if they were not there (Stefan, 14.10.2026), so it takes the same small gap from both
-  // edges and leaves as much of the plate free as it can.
+  // Both captions use the same inset from the front and side boundaries.
   return {
     width: labelWidth,
     height: labelHeight,

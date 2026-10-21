@@ -332,3 +332,52 @@ html[data-toolbar-size="large"] .layerling-editor .toolbar-mode-content.geometry
 @media (max-width: 800px) {
   .cad-inspector-host .inspector-header-actions { flex-basis: 100%; justify-content: flex-end; }
 }
+
+/* Compact revision: two shape columns, centered side controls, inline editing tools. */
+.layerling-editor { --cad-tools-width:220px; }
+.cad-shape-grid.shape-menu-list { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.dashboard-cad-title { font-weight:750; }
+.cad-brand-with-fullscreen, .calm-editor-brand { align-items:center; }
+.calm-editor-brand strong { line-height:1.4; padding-top:5px; }
+.layerling-editor .toolbar-mode-content .tool-group.cad-feature-rail { justify-content:center; background:var(--panel); }
+.cad-top-tools { position:fixed; left:108px; top:calc(var(--editor-toolbar-title-height) + 8px); display:flex; align-items:center; gap:8px; z-index:22; }
+.cad-inline-tools { padding:0; border:1px solid var(--border-strong); border-radius:6px; background:var(--panel); }
+.cad-inline-tools > .toolbar-section-label { display:none; }
+.layerling-editor .cad-inline-tools .toolbar-section-tools { display:flex; flex-wrap:nowrap; min-height:44px; padding:2px; gap:1px; }
+.layerling-editor .cad-inline-tools .toolbar-icon { width:30px;min-width:30px;height:36px;padding:4px; }
+.cad-top-tools .cad-feature-popover { top:calc(100% + 8px); left:0; right:auto; width:240px; max-width:calc(100vw - var(--cad-tools-width) - var(--cad-feature-width) - 20px); }
+/* Neutral face shading matches the library's shape thumbnails in either theme. */
+html .view-cube .cube-face { background:#cccccc; color:#48645b; border-color:#82958b; box-shadow:inset 0 0 0 1px #eef0ed40; }
+html .view-cube .cube-top { background:#f1f1f1; }
+html .view-cube .cube-right { background:#dedede; }
+html .view-cube .cube-left, html .view-cube .cube-bottom { background:#b8b8b8; }
+html .view-cube .cube-face:hover, html .view-cube .cube-face:focus-visible { background:#e3f2e7; color:#234f40; }
+/* Keep the inspector usable at the narrower library width. */
+.cad-inspector-host .shape-inspector-header { flex-wrap:wrap;gap:4px;padding:6px; }
+.cad-inspector-host .inspector-header-actions { flex-wrap:wrap;gap:2px;flex-basis:100%;justify-content:flex-end; }
+.cad-inspector-host .inspector-header-icon { width:24px;min-width:0; }
+.cad-inspector-host .shape-state-card { margin:4px;padding:10px 5px;gap:8px 4px; }
+.cad-inspector-host .large-solid-swatch, .cad-inspector-host .large-hole-swatch { width:50px;height:50px; }
+.cad-inspector-host .property-card, .cad-inspector-host .color-card { margin-inline:4px;padding-inline:7px; }
+.cad-inspector-host .range-property-header { flex-wrap:wrap;gap:4px; }
+.cad-inspector-host .range-property-name { white-space:normal;font-size:12px; }
+.cad-inspector-host .range-property input { min-width:0; }
+.cad-inspector-host .property-defaults-actions, .cad-inspector-host .snap-row { flex-wrap:wrap; }
+.cad-inspector-host .color-grid { grid-template-columns:repeat(5,minmax(0,1fr));gap:4px; }
+.cad-inspector-host .color-grid button { width:100%;height:auto;aspect-ratio:1; }
+.cad-inspector-host .react-colorful { width:100%; }
+@media(max-width:1100px) and (min-width:801px) {
+  .cad-top-tools { left:100px; }
+}
+@media(max-width:800px) {
+  .layerling-editor { --cad-tools-width:160px; }
+  .cad-top-tools { left:10px;top:calc(var(--editor-toolbar-title-height) + 56px);gap:6px; }
+  .layerling-editor .view-cube { top:122px; }
+  .layerling-editor .camera-rail { top:238px; }
+  .cad-top-tools .cad-feature-popover { width:240px;max-width:calc(100vw - var(--cad-tools-width) - var(--cad-feature-width) - 20px); }
+  .cad-top-tools .cad-feature-group:last-child .cad-feature-popover { left:-41px; }
+  .cad-inspector-host .large-solid-swatch, .cad-inspector-host .large-hole-swatch { width:40px;height:40px; }
+}
+.layerling-editor .toolbar-mode-content .tool-group.cad-feature-rail { height:calc(100dvh - var(--editor-toolbar-title-height)); }
+html[data-theme="dark"] .layerling-editor .toolbar-mode-content .tool-group.cad-feature-rail { background:#193a31; }
+.visibility-dropdown { max-height:calc(100dvh - var(--editor-toolbar-title-height) - 24px);overflow-y:auto;overscroll-behavior:contain; }
