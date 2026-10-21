@@ -3,6 +3,7 @@
 import { Moon, Sun } from "lucide-react";
 import { setAppTheme, type AppThemePreference } from "@/lib/appTheme";
 import { t } from "@/lib/i18n";
+import { useEffect, useState } from "react";
 import { useAppTheme } from "@/lib/useAppTheme";
 
 export function ThemeChoices({ value, onChange }: { value: AppThemePreference; onChange: (value: AppThemePreference) => void }) {
@@ -14,5 +15,9 @@ export function ThemeChoices({ value, onChange }: { value: AppThemePreference; o
 
 export function ThemeSwitch() {
   const theme = useAppTheme();
-  return <ThemeChoices value={theme} onChange={setAppTheme} />;
+  const [systemDark, setSystemDark] = useState(false);
+  useEffect(() => { const media = window.matchMedia("(prefers-color-scheme: dark)"); const sync = () => setSystemDark(media.matches); sync(); media.addEventListener("change", sync); return () => media.removeEventListener("change", sync); }, []);
+  const dark = theme === "dark" || theme === "graphite" || (theme === "system" && systemDark);
+  const label = t(dark ? "workspace.themeLight" : "workspace.themeDark");
+  return <button type="button" className="cad-theme-toggle" aria-label={label} title={label} onClick={() => setAppTheme(dark ? "light" : "dark")}>{dark ? <Sun size={22} aria-hidden="true" /> : <Moon size={22} aria-hidden="true" />}</button>;
 }
