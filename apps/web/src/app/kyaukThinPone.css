@@ -286,3 +286,14 @@ html[data-toolbar-size="large"] .layerling-editor .toolbar-mode-content.geometry
   .cad-feature-popover { padding: 6px; }
   .layerling-editor .cad-feature-popover .toolbar-section-tools { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
+@media (max-width: 800px) {
+  .layerling-editor .calm-history-section { left: 10px; right: calc(var(--cad-tools-width) + var(--cad-feature-width) + 8px); width: auto; }
+  .layerling-editor .calm-history-section .toolbar-icon { width: 26px; min-width: 26px; height: 34px; padding: 3px; }
+  .layerling-editor .calm-history-section .toolbar-section-tools { padding: 1px; gap: 0; }
+  .layerling-editor .view-cube { top: 74px; }
+  .layerling-editor .camera-rail { top: 186px; }
+}
+@container workplane (max-height: 460px) {
+  .layerling-editor .camera-rail { top: 140px; flex-direction: row; }
+  .layerling-editor .camera-controls > button, .layerling-editor .camera-controls > div > button { height: 34px; }
+}

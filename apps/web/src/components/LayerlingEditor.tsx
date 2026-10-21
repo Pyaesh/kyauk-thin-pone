@@ -13568,7 +13568,7 @@ function SecondaryToolbar({
             <select aria-label={language === "my" ? "ပုံအုပ်စု" : "Shape category"} value={shapeGroup} onChange={event => { setShapeGroup(event.target.value as CadShapeGroup); setShapeSearch(""); }}>
               {CAD_SHAPE_GROUPS.map(group => <option key={group.id} value={group.id}>{language === "my" ? group.my : group.en}</option>)}
             </select>
-            <label className="cad-shape-search"><Search size={17} /><input aria-label={language === "my" ? "ပုံများ ရှာရန်" : "Search shapes"} placeholder={language === "my" ? "ရှာရန်" : "Search shapes"} value={shapeSearch} onChange={event => setShapeSearch(event.target.value)} /></label>
+            {shapeGroup !== "custom" ? <label className="cad-shape-search"><Search size={17} /><input aria-label={language === "my" ? "ပုံများ ရှာရန်" : "Search shapes"} placeholder={language === "my" ? "ရှာရန်" : "Search shapes"} value={shapeSearch} onChange={event => setShapeSearch(event.target.value)} /></label> : null}
           </div>
           <div className="cad-shape-scroll">
             {shapeGroup === "custom" ? renderMyShapes?.(() => {}) : <div className="shape-menu-list cad-shape-grid">
