@@ -3056,26 +3056,26 @@ html[data-theme="dark"]:where([data-palette="graphite"]) .panel-grip:hover {
   color: inherit;
 }
 
-:where(html[data-theme="dark"][data-palette="graphite"]) .camera-controls .section-tool-popover .section-toggle-btn {
+:where(html[data-theme="dark"][data-palette="graphite"]) .section-tool-popover .section-toggle-btn {
   border: 1px solid #bed2c8;
   background: #ebf2ee;
   color: #607a6d;
 }
 
-:where(html[data-theme="dark"][data-palette="graphite"]) .camera-controls .section-tool-popover .section-toggle-btn.active {
+:where(html[data-theme="dark"][data-palette="graphite"]) .section-tool-popover .section-toggle-btn.active {
   background: #228771;
   border-color: #228771;
   color: #ffffff;
   box-shadow: 0 1px 4px rgba(210, 112, 9, 0.35);
 }
 
-:where(html[data-theme="dark"][data-palette="graphite"]) .camera-controls .section-tool-popover .section-popover-close {
+:where(html[data-theme="dark"][data-palette="graphite"]) .section-tool-popover .section-popover-close {
   border: none;
   background: transparent;
   color: #6e8b7c;
 }
 
-:where(html[data-theme="dark"][data-palette="graphite"]) .camera-controls .section-tool-popover .section-popover-close:hover {
+:where(html[data-theme="dark"][data-palette="graphite"]) .section-tool-popover .section-popover-close:hover {
   background: rgba(0, 0, 0, 0.06);
   color: #182720;
 }
@@ -3088,35 +3088,35 @@ html[data-theme="dark"]:where([data-palette="graphite"]) .panel-grip:hover {
   background: #ddeae3;
 }
 
-:where(html[data-theme="dark"][data-palette="graphite"]) .camera-controls .section-tool-popover .section-axis-btn {
+:where(html[data-theme="dark"][data-palette="graphite"]) .section-tool-popover .section-axis-btn {
   border: none;
   background: transparent;
   color: #466355;
 }
 
-:where(html[data-theme="dark"][data-palette="graphite"]) .camera-controls .section-tool-popover .section-axis-btn:hover {
+:where(html[data-theme="dark"][data-palette="graphite"]) .section-tool-popover .section-axis-btn:hover {
   background: rgba(255, 255, 255, 0.5);
   color: #182720;
 }
 
-:where(html[data-theme="dark"][data-palette="graphite"]) .camera-controls .section-tool-popover .section-axis-btn.active {
+:where(html[data-theme="dark"][data-palette="graphite"]) .section-tool-popover .section-axis-btn.active {
   background: #ffffff;
   color: #228771;
   box-shadow: 0 1px 3px rgba(61, 61, 61, 0.15);
 }
 
-:where(html[data-theme="dark"][data-palette="graphite"]) .camera-controls .section-tool-popover .section-flip-btn {
+:where(html[data-theme="dark"][data-palette="graphite"]) .section-tool-popover .section-flip-btn {
   border: 1px solid #c9dcd2;
   background: #f7faf8;
   color: #466355;
 }
 
-:where(html[data-theme="dark"][data-palette="graphite"]) .camera-controls .section-tool-popover .section-flip-btn:hover {
+:where(html[data-theme="dark"][data-palette="graphite"]) .section-tool-popover .section-flip-btn:hover {
   background: #e7f1ec;
   color: #182720;
 }
 
-:where(html[data-theme="dark"][data-palette="graphite"]) .camera-controls .section-tool-popover .section-flip-btn.active {
+:where(html[data-theme="dark"][data-palette="graphite"]) .section-tool-popover .section-flip-btn.active {
   background: #f0f5f2;
   border-color: #228771;
   color: #228771;
@@ -3170,13 +3170,13 @@ html[data-theme="dark"]:where([data-palette="graphite"]) .panel-grip:hover {
   border-top: 1px solid #dceae3;
 }
 
-:where(html[data-theme="dark"][data-palette="graphite"]) .camera-controls .section-tool-popover .section-action-btn {
+:where(html[data-theme="dark"][data-palette="graphite"]) .section-tool-popover .section-action-btn {
   border: 1px solid #c9dcd2;
   background: #f7faf8;
   color: #466355;
 }
 
-:where(html[data-theme="dark"][data-palette="graphite"]) .camera-controls .section-tool-popover .section-action-btn:hover {
+:where(html[data-theme="dark"][data-palette="graphite"]) .section-tool-popover .section-action-btn:hover {
   background: #e7f1ec;
   color: #182720;
 }
@@ -3197,7 +3197,7 @@ html[data-theme="dark"]:where([data-palette="graphite"]) .inspector-bundle-note 
   border-top: 1px solid #dceae3;
 }
 
-:where(html[data-theme="dark"][data-palette="graphite"]) .camera-controls .section-tool-popover .section-measure-btn.active {
+:where(html[data-theme="dark"][data-palette="graphite"]) .section-tool-popover .section-measure-btn.active {
   color: #fff;
   background: #228771;
   border-color: #228771;
