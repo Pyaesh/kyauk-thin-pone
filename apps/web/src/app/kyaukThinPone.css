@@ -306,3 +306,26 @@ html[data-toolbar-size="large"] .layerling-editor .toolbar-mode-content.geometry
 .cad-inspector-host .shape-inspector { width: 100%; max-width: 100%; pointer-events: auto; }
 .cad-inspector-host .shape-inspector.floating { width: 100%; border-radius: 6px; }
 .cad-inspector-host .shape-inspector input, .cad-inspector-host .shape-inspector select { max-width: 100%; }
+.cad-inspector-host .shape-inspector:not(.floating) { inset: 0; }
+.cad-inspector-host .shape-inspector.minimized { bottom: auto; }
+@media (max-width: 800px) {
+  .cad-inspector-host .shape-inspector-header { flex-wrap: wrap; gap: 4px; padding: 6px; }
+  .cad-inspector-host .shape-inspector-header strong { font-size: 12px; }
+  .cad-inspector-host .inspector-header-actions { flex-wrap: wrap; gap: 2px; }
+  .cad-inspector-host .inspector-header-icon { width: 22px; min-width: 0; }
+  .cad-inspector-host .shape-state-card { margin: 4px; padding: 10px 5px; gap: 8px 4px; }
+  .cad-inspector-host .large-solid-swatch, .cad-inspector-host .large-hole-swatch { width: 40px; height: 40px; }
+  .cad-inspector-host .shape-state-card button { font-size: 11px; }
+  .cad-inspector-host .check-property { font-size: 11px; gap: 4px; overflow-wrap: anywhere; }
+  .cad-inspector-host .property-card, .cad-inspector-host .color-card { margin-inline: 4px; padding-inline: 7px; }
+  .cad-inspector-host .property-card-header { height: auto; min-height: 38px; font-size: 13px; gap: 3px; overflow-wrap: anywhere; }
+  .cad-inspector-host .range-property-header { flex-wrap: wrap; gap: 4px; }
+  .cad-inspector-host .range-property-name { font-size: 11px; white-space: normal; }
+  .cad-inspector-host .range-property input { min-width: 0; }
+  .cad-inspector-host .property-defaults-actions { flex-wrap: wrap; }
+  .cad-inspector-host .color-grid { grid-template-columns: repeat(5,minmax(0,1fr)); gap: 4px; }
+  .cad-inspector-host .color-grid button { width: 100%; height: auto; aspect-ratio: 1; }
+  .cad-inspector-host .react-colorful { width: 100%; }
+  .cad-inspector-host .inspector-snap-dock { padding: 8px 4px; }
+  .cad-inspector-host .snap-row { flex-wrap: wrap; justify-content: center; gap: 4px; font-size: 10px; }
+}
