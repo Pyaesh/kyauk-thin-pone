@@ -1,6 +1,7 @@
 "use client";
 
 import { CadFullscreenButton } from "@/components/CadFullscreenButton";
+import { CadModifyTools } from "./CadModifyTools";
 import { CadToolRow } from "./CadToolRow";
 import { CadFeatureGroup } from "@/components/CadFeatureGroup";
 import { CAD_SHAPE_GROUPS, cadShapeGroup, type CadShapeGroup } from "@/lib/cadShapeGroups";
@@ -13661,6 +13662,7 @@ function SecondaryToolbar({
           <div className="toolbar-section-label">{t("editor.group.arrange")}</div>
           <div className="toolbar-section-tools">{arrangeTools.map(renderToolButton)}</div>
         </CadToolRow>
+        <CadModifyTools title={t("editor.group.modify")} primary={modifyTools.slice(0, 5).map(renderToolButton)} more={modifyTools.slice(5).map(renderToolButton)} />
       </div>
       <div className="tool-group right cad-feature-rail" inert={historyViewActive}>
         <CadFeatureGroup group="visibility" title={t("editor.group.visibility")} icon={<Eye size={23} />} containerRef={visibilityMenuRef}>
@@ -13764,10 +13766,7 @@ function SecondaryToolbar({
           ) : null}
         </CadFeatureGroup>
 
-        <CadFeatureGroup group="modify" title={t("editor.group.modify")} icon={<Pencil size={23} />}>
-          <div className="toolbar-section-label">{t("editor.group.modify")}</div>
-          <div className="toolbar-section-tools">{modifyTools.map(renderToolButton)}</div>
-        </CadFeatureGroup>
+
 
       </div>
 
@@ -14006,7 +14005,7 @@ function SecondaryToolbar({
       <div className="toolbar-title-row">
         {/* The brand, in the same corner as on the start page. Not a link:
             leaving the editor is not something to trigger by accident. */}
-        <div className="cad-brand-with-fullscreen"><a className="calm-editor-brand" href={CAD_ENTRY_PATH} title="ပြန်ထွက်မည်" onClick={async event => { event.preventDefault(); await onHome?.(); window.location.assign(CAD_ENTRY_PATH); }}><span aria-hidden="true">←</span><span className="calm-home-label">ပြန်ထွက်မည်</span><span className="calm-header-divider" aria-hidden="true" /><strong>ကျောက်သင်ပုန်း</strong></a><CadFullscreenButton /></div>
+        <div className="cad-brand-with-fullscreen"><a className="calm-editor-brand" href={CAD_ENTRY_PATH} title="ပြန်ထွက်မည်" onClick={async event => { event.preventDefault(); await onHome?.(); window.location.assign(CAD_ENTRY_PATH); }}><span aria-hidden="true">←</span><span className="calm-home-label">ပြန်ထွက်မည်</span><span className="calm-header-divider" aria-hidden="true" /><strong>{language === "en" ? "KyautThinPone" : "ကျောက်သင်ပုံး"}</strong></a><CadFullscreenButton /></div>
         <div className="toolbar-workspace-tabs" role="tablist" aria-label={t("editor.modeLabel")}>
           <button
             className={toolbarMode === "geometry" ? "active" : ""}
