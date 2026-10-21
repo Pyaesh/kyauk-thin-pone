@@ -379,3 +379,5 @@ html .view-cube .cube-face:hover, html .view-cube .cube-face:focus-visible { bac
   .cad-inspector-host .large-solid-swatch, .cad-inspector-host .large-hole-swatch { width:40px;height:40px; }
 }
 .layerling-editor .toolbar-mode-content .tool-group.cad-feature-rail { height:calc(100dvh - var(--editor-toolbar-title-height)); }
+html[data-theme="dark"] .layerling-editor .toolbar-mode-content .tool-group.cad-feature-rail { background:#193a31; }
+.visibility-dropdown { max-height:calc(100dvh - var(--editor-toolbar-title-height) - 24px);overflow-y:auto;overscroll-behavior:contain; }

@@ -13292,6 +13292,12 @@ function SecondaryToolbar({
   }, [shapesOpen]);
   useEffect(() => {
     if (!visibilityOpen) return;
+    const dropdown = visibilityMenuRef.current?.querySelector<HTMLElement>(".visibility-dropdown");
+    if (dropdown) {
+      const bounds = dropdown.getBoundingClientRect();
+      const top = Math.max(12, Math.min(bounds.top, window.innerHeight - bounds.height - 12));
+      setVisibilityMenuPosition(current => current.top === top ? current : { ...current, top });
+    }
     const closeOnPointerDown = (event: PointerEvent) => {
       if (!visibilityMenuRef.current?.contains(event.target as Node)) setVisibilityOpen(false);
     };
