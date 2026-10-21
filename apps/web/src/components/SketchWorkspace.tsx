@@ -1789,8 +1789,8 @@ export function SketchWorkspace({
     <main className="sketch-workspace-stage" style={sketchColorStyle}>
       <div className="sketch-mode-badge">{operation === "revolve" ? t("sketch.modeBadgeRevolve") : operation === "sweep" ? t("sketch.modeBadgeSweep") : t("sketch.modeBadge")}</div>
       {operation === "revolve" ? <SketchRevolvePreview positions={revolvePreviewPositions} /> : null}
+      <EditorUtilityControls />
       <div className="camera-controls sketch-camera-controls" aria-label={t("sketch.viewControls")} data-help-section="cameraBar">
-        <EditorUtilityControls />
         <button aria-label={t("sketch.resetView")} aria-keyshortcuts="Home" title={t("camera.shortcut", { label: t("sketch.resetView"), keys: "Home" })} onClick={resetView}><HomeViewIcon /></button>
         <button
           aria-label={t("camera.focusSelection")}

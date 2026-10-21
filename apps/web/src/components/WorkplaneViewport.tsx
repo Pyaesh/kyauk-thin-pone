@@ -8886,6 +8886,7 @@ export function WorkplaneViewport({
         </div>
       </div>
 
+      <EditorUtilityControls />
       <div className={`camera-controls ${cameraControlsCollapsed ? "collapsed" : ""}`} aria-label={t("camera.controls")} data-help-section="cameraBar">
         {cameraControlsCollapsed ? (
           <button className="camera-controls-toggle" aria-label={t("camera.show")} title={t("camera.showShort")} aria-expanded={false} onClick={() => setCameraControlsCollapsed(false)}>
@@ -8893,7 +8894,6 @@ export function WorkplaneViewport({
           </button>
         ) : (
           <>
-            <EditorUtilityControls />
             <button className="camera-home-control" aria-label={t("camera.home")} aria-keyshortcuts="Home" title={t("camera.shortcut", { label: t("camera.home"), keys: "Home" })} onClick={resetView}>
               <HomeViewIcon />
             </button>
@@ -9939,7 +9939,9 @@ function resetCamera(state: ThreeState, workspace: WorkplaneWorkspaceSettings) {
   const radius = Math.hypot(workspace.width, workspace.depth) / 2;
   const canvas = state.renderer.domElement;
   const aspect = canvas.clientWidth / Math.max(1, canvas.clientHeight);
-  const distance = perspectiveFramingDistance(radius, CAMERA_FOV, aspect);
+  const halfVertical = Math.tan(THREE.MathUtils.degToRad(CAMERA_FOV / 2));
+  const nearDepth = workspace.depth / 2 * direction.z;
+  const distance = Math.max(workspace.width / 2 / (halfVertical * aspect) + nearDepth, workspace.depth / 2 * direction.y / halfVertical + nearDepth) * 1.12;
   state.camera.up.set(0, 1, 0);
   state.camera.zoom = 1;
   state.camera.position.copy(target).addScaledVector(direction, distance);
