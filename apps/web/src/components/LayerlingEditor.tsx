@@ -1,6 +1,7 @@
 "use client";
 
 import { CadFullscreenButton } from "@/components/CadFullscreenButton";
+import { CadToolRow } from "./CadToolRow";
 import { CadFeatureGroup } from "@/components/CadFeatureGroup";
 import { CAD_SHAPE_GROUPS, cadShapeGroup, type CadShapeGroup } from "@/lib/cadShapeGroups";
 import { CAD_ENTRY_PATH } from "@/lib/cadEntry";
@@ -13645,6 +13646,16 @@ function SecondaryToolbar({
         </div>
       </div>
       <div className="toolbar-spacer" />
+      <div className="cad-top-tools" inert={historyViewActive}>
+        <CadToolRow group="combine" title={t("editor.group.combine")} icon={<Blend size={23} />}>
+          <div className="toolbar-section-label">{t("editor.group.combine")}</div>
+          <div className="toolbar-section-tools">{combineTools.map(renderToolButton)}</div>
+        </CadToolRow>
+        <CadToolRow group="arrange" title={t("editor.group.arrange")} icon={<ListTree size={23} />}>
+          <div className="toolbar-section-label">{t("editor.group.arrange")}</div>
+          <div className="toolbar-section-tools">{arrangeTools.map(renderToolButton)}</div>
+        </CadToolRow>
+      </div>
       <div className="tool-group right cad-feature-rail" inert={historyViewActive}>
         <CadFeatureGroup group="visibility" title={t("editor.group.visibility")} icon={<Eye size={23} />} containerRef={visibilityMenuRef}>
           <div className="toolbar-section-label">{t("editor.group.visibility")}</div>
@@ -13746,18 +13757,12 @@ function SecondaryToolbar({
             </div>
           ) : null}
         </CadFeatureGroup>
-        <CadFeatureGroup group="combine" title={t("editor.group.combine")} icon={<Blend size={23} />}>
-          <div className="toolbar-section-label">{t("editor.group.combine")}</div>
-          <div className="toolbar-section-tools">{combineTools.map(renderToolButton)}</div>
-        </CadFeatureGroup>
+
         <CadFeatureGroup group="modify" title={t("editor.group.modify")} icon={<Pencil size={23} />}>
           <div className="toolbar-section-label">{t("editor.group.modify")}</div>
           <div className="toolbar-section-tools">{modifyTools.map(renderToolButton)}</div>
         </CadFeatureGroup>
-        <CadFeatureGroup group="arrange" title={t("editor.group.arrange")} icon={<ListTree size={23} />}>
-          <div className="toolbar-section-label">{t("editor.group.arrange")}</div>
-          <div className="toolbar-section-tools">{arrangeTools.map(renderToolButton)}</div>
-        </CadFeatureGroup>
+
       </div>
 
 
@@ -14052,6 +14057,7 @@ function SecondaryToolbar({
         </div>
         <div className="calm-file-actions">
           <button type="button" onClick={() => onTopPanel("import")} disabled={historyViewActive}>ဖိုင်ဖွင့်</button>
+          <button type="button" onClick={() => onTopPanel("export")}>ဖိုင်ထုတ်</button>
       <EditorMoreMenu>
         <button type="button" onClick={onNoteTool} disabled={historyViewActive || toolbarMode !== "geometry"}><ToolbarNoteIcon />{t("editor.tool.note")}</button>
         <button type="button" onClick={onHistoryView} disabled={!canHistoryView || toolbarMode !== "geometry"}><ToolbarHistoryIcon />{t("editor.tool.history")}</button>
@@ -14060,7 +14066,7 @@ function SecondaryToolbar({
         <button type="button" onClick={onShortcuts}><ToolbarKeyboardIcon />{t("editor.keyboardShortcuts")}</button>
         <button type="button" onClick={onInteractiveHelp} aria-pressed={interactiveHelpActive}><CircleHelp size={22} />{t("interactiveHelp.title")}</button>
       </EditorMoreMenu>
-          <button type="button" onClick={() => onTopPanel("export")}>ဖိုင်ထုတ်</button>
+
         </div>
         </div>
       </div>

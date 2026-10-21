@@ -2948,7 +2948,7 @@ function Dashboard({
             <span className="dashboard-brand-name">3D<span className="brand-pmm">PMM</span></span><small className="dashboard-brand-caption">3D PRINTING MYANMAR</small>
           </span>
         </a>
-        <h1 className="dashboard-cad-title">ကျောက်သင်ပုံး</h1>
+        <h1 className="dashboard-cad-title">ပုံဆွဲအခန်း</h1>
         <div className="dashboard-topbar-actions">
           <ThemeSwitch />
           <LanguageSwitch />
